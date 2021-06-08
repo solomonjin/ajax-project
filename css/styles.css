@@ -1,0 +1,19 @@
+
+.nav-bar {
+  background-color: #344966;
+  height: 90px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 20px 10px;
+  justify-content: space-between;
+  color: #f0f4ef;
+}
+
+.nav-bar h1 {
+  margin: 0;
+  font-weight: 400;
+}
+
+.nav-bar img {
+  max-width: 32px;
+}
