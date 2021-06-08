@@ -44,7 +44,11 @@ h1 {
   overflow-x: hidden;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
   background-color: #f0f4ef;
-  transition: width 0.5s;
+  transition: width 0.25s;
+}
+
+.show-menu {
+  width: 350px;
 }
 
 .nav-list {
@@ -54,12 +58,25 @@ h1 {
 
 .close-nav {
   position: absolute;
-  top: 20px;
+  top: 40px;
   left: 20px;
 }
 
 .nav-list > li {
   margin: 1rem 0;
+}
+
+.nav-list > li::after {
+  display: block;
+  content: '';
+  margin: 1rem 0;
+  border-bottom: solid 3px #e275b7;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+
+.nav-list > li:hover::after {
+  transform: scaleX(1);
 }
 
 .nav-item > a {
@@ -92,6 +109,11 @@ button:hover {
   border: none;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 24px;
+  transition: background-color 0.25s;
+}
+
+.search-btn:hover {
+  background-color: #a3668b;
 }
 
 .search-btn img {
