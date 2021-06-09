@@ -42,7 +42,7 @@
   </header>
   <main>
     <div class="container">
-      <div class="container views home align-center justify-center" data-view="home">
+      <div class="container views home align-center justify-center hidden" data-view="home">
         <div class="row justify-center align-center">
           <div class="col">
             <h1 class="home-text">Begin by searching for a recipe</h1>
@@ -184,6 +184,36 @@
             <button type="submit" class="search-btn submit-search">Search</button>
           </div>
         </form>
+      </div>
+      <div class="container views" data-view="recipe-list">
+        <div class="row recipe-list">
+          <div class="col">
+            <h3 class="list-header">### Recipes Found</h3>
+          </div>
+          <div class="col-half recipe-container">
+            <div class="row">
+              <div class="col-35 justify-start align-center">
+                <img class="thumbnail" src="https://www.edamam.com/web-img/15b/15b3c28a2df3910ec02e68b771de33a3.jpg">
+              </div>
+              <div class="col-65 row">
+                <div class="col">
+                  <h3 class="recipe-name">Recipe Name</h3>
+                </div>
+                <div class="col row">
+                  <div class="column-half">
+                    <h4 class="recipe-info"><span class="calorie-num">####</span> Calories</h4>
+                  </div>
+                  <div class="column-half">
+                    <h4 class="recipe-info"><span class="ingr-num">##</span> Ingredients</h4>
+                  </div>
+                </div>
+                <div class="col justify-end">
+                  <a href="#"><img src="images/heart.svg" alt="Favorites icon" class="favorite-icon"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
