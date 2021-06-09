@@ -251,6 +251,12 @@ form label {
   cursor: pointer;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @media only screen and (min-width: 1115px) {
   .col-half {
     flex-basis: 50%;

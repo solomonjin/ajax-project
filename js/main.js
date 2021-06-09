@@ -62,16 +62,88 @@ function clickNavList(event) {
 }
 
 function submitSearch(event) {
-  // var searchObj = {
-  //   keywords: '?q=' + encodeURIComponent($searchForm.keywords.value),
-  //   calories: getCalories($searchForm.caloriesFrom.value, $searchForm.caloriesTo.value)
-  // };
-  // console.log(searchObj);
+  var $toggleButtonList = document.querySelectorAll('.toggle-button');
+  var searchObj = {
+    keywords: getKeyWords($searchForm.keywords.value.toLowerCase()),
+    calories: getCalories($searchForm.caloriesFrom.value, $searchForm.caloriesTo.value),
+    ingredients: getMaxIngredients($searchForm.ingredients.value),
+    mealType: getMealType($searchForm.meal.value),
+    cuisineType: [],
+    diet: [],
+    health: [],
+    exclude: getExclusions($searchForm.exclusions.value.toLowerCase())
+  };
+  getButtonOptions($toggleButtonList, searchObj);
+  var searchURL = generateSearchURL(searchObj);
+  console.log(searchURL);
 }
 
-// function getCalories(from, to) {
-//   if (!from && !to) return null;
-//   if (!to) return '&calories=' + from + encodeURIComponent('+');
-//   if (!from) return '&calories=' + to;
-//   else return '&calories=' + from + '-' + to;
-// }
+function getKeyWords(str) {
+  if (!str) return '?q=';
+  return '?q=' + encodeURIComponent($searchForm.keywords.value);
+}
+
+function getCalories(from, to) {
+  if (!from && !to) return null;
+  if (!to) return '&calories=' + from + encodeURIComponent('+');
+  if (!from) return '&calories=' + to;
+  else return '&calories=' + from + '-' + to;
+}
+
+function getMaxIngredients(ing) {
+  if (!ing) return null;
+  return '&ingr=' + ing;
+}
+
+function getMealType(meal) {
+  if (!meal) return null;
+  else return '&mealType=' + meal;
+}
+
+function getButtonOptions(list, obj) {
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].classList.contains('toggled')) {
+      if (list[i].getAttribute('data-type') === 'cuisineType') obj.cuisineType.push('&cuisineType=' + list[i].getAttribute('data-value'));
+      if (list[i].getAttribute('data-type') === 'diet') obj.diet.push('&diet=' + list[i].getAttribute('data-value'));
+      if (list[i].getAttribute('data-type') === 'health') obj.health.push('&health=' + list[i].getAttribute('data-value'));
+    }
+  }
+}
+
+function getExclusions(str) {
+  var exclusions = [];
+  if (!str) return exclusions;
+  var list = str.split(' ');
+  for (var i = 0; i < list.length; i++) {
+    exclusions.push('&excluded=' + list[i]);
+  }
+  return exclusions;
+}
+
+function generateSearchURL(obj) {
+  var url = 'https://api.edamam.com/search';
+  url += obj.keywords;
+  url += '&app_id=df6bbd8b&app_key=16ab3f81eb63f8435dd3e8d0dd8fbed8';
+  if (obj.calories) url += obj.calories;
+  if (obj.ingredients) url += obj.ingredients;
+  if (obj.mealType) url += obj.mealType;
+  url += getOptionsURL(obj);
+  return url;
+}
+
+function getOptionsURL(obj) {
+  var result = '';
+  for (var i = 0; i < obj.cuisineType.length; i++) {
+    result += obj.cuisineType[i];
+  }
+  for (i = 0; i < obj.diet.length; i++) {
+    result += obj.diet[i];
+  }
+  for (i = 0; i < obj.health.length; i++) {
+    result += obj.health[i];
+  }
+  for (i = 0; i < obj.exclude.length; i++) {
+    result += obj.exclude[i];
+  }
+  return result;
+}
