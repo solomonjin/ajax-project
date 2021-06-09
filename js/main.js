@@ -79,8 +79,8 @@ function submitSearch(event) {
 }
 
 function getKeyWords(str) {
-  if (!str) return '?q=';
-  return '?q=' + encodeURIComponent($searchForm.keywords.value);
+  if (!str) return '&q=';
+  return '&q=' + encodeURIComponent($searchForm.keywords.value);
 }
 
 function getCalories(from, to) {
@@ -103,7 +103,7 @@ function getMealType(meal) {
 function getButtonOptions(list, obj) {
   for (var i = 0; i < list.length; i++) {
     if (list[i].classList.contains('toggled')) {
-      if (list[i].getAttribute('data-type') === 'cuisineType') obj.cuisineType.push('&cuisineType=' + list[i].getAttribute('data-value'));
+      if (list[i].getAttribute('data-type') === 'cuisineType') obj.cuisineType.push('&cuisineType=' + encodeURIComponent(list[i].getAttribute('data-value')));
       if (list[i].getAttribute('data-type') === 'diet') obj.diet.push('&diet=' + list[i].getAttribute('data-value'));
       if (list[i].getAttribute('data-type') === 'health') obj.health.push('&health=' + list[i].getAttribute('data-value'));
     }
@@ -121,7 +121,7 @@ function getExclusions(str) {
 }
 
 function generateSearchURL(obj) {
-  var url = 'https://api.edamam.com/search';
+  var url = 'https://api.edamam.com/api/recipes/v2?type=public';
   url += obj.keywords;
   url += '&app_id=df6bbd8b&app_key=16ab3f81eb63f8435dd3e8d0dd8fbed8';
   if (obj.calories) url += obj.calories;
