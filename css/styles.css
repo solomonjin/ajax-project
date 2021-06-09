@@ -4,11 +4,17 @@
   justify-content: center;
 }
 
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .align-center {
   display: flex;
   align-content: center;
 }
 
+.nav-bar-desktop,
 .nav-bar {
   background-color: #344966;
   height: 90px;
@@ -19,12 +25,26 @@
   color: #f0f4ef;
 }
 
-h1 {
+.nav-bar-desktop {
+  padding-top: 10px;
+  align-items: center;
+  display: none;
+}
+
+h1,
+h2 {
   font-weight: 400;
 }
 
+.nav-bar-desktop h1,
+.nav-bar-desktop h2,
 .nav-bar h1 {
-  margin: 0;
+  margin: 0 2rem;
+}
+
+.nav-bar-desktop a {
+  text-decoration: none;
+  color: #f0f4ef;
 }
 
 .nav-bar img {
@@ -66,15 +86,16 @@ h1 {
   margin: 1rem 0;
 }
 
+a > h2::after,
 .nav-list > li::after {
   display: block;
   content: '';
-  margin: 1rem 0;
   border-bottom: solid 3px #e275b7;
   transform: scaleX(0);
   transition: transform 250ms ease-in-out;
 }
 
+a > h2:hover::after,
 .nav-list > li:hover::after {
   transform: scaleX(1);
 }
@@ -101,6 +122,14 @@ button:hover {
   cursor: pointer;
 }
 
+.search-icon {
+  transition: transform 0.5s;
+}
+
+.search-icon:hover {
+  transform: rotate(90deg);
+}
+
 .search-btn {
   padding: 10px 30px;
   background-color: #e275b7;
@@ -125,4 +154,14 @@ button:hover {
 
 [data-view="home"] {
   transform: translateY(150%);
+}
+
+@media only screen and (min-width: 1115px) {
+  .nav-bar-desktop {
+    display: flex;
+  }
+
+  .nav-bar {
+    display: none;
+  }
 }
