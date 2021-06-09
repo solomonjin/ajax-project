@@ -75,7 +75,7 @@ function submitSearch(event) {
   };
   getButtonOptions($toggleButtonList, searchObj);
   var searchURL = generateSearchURL(searchObj);
-  data.search = makeQuery(searchURL);
+  makeQuery(searchURL);
 }
 
 function getKeyWords(str) {
@@ -152,6 +152,10 @@ function makeQuery(url) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url);
   xhr.responseType = 'json';
+  xhr.addEventListener('load', setData);
   xhr.send();
-  return xhr;
+}
+
+function setData(event) {
+  data.search = this.response;
 }
