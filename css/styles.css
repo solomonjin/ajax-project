@@ -1,0 +1,284 @@
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.justify-even {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.align-center {
+  display: flex;
+  align-content: center;
+}
+
+.nav-bar-desktop,
+.nav-bar {
+  background-color: #344966;
+  height: 90px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 20px 10px;
+  justify-content: space-between;
+  color: #f0f4ef;
+}
+
+.nav-bar-desktop {
+  padding-top: 10px;
+  align-items: center;
+  display: none;
+}
+
+h1,
+h2 {
+  font-weight: 400;
+}
+
+.nav-bar-desktop h1,
+.nav-bar-desktop h2,
+.nav-bar h1 {
+  margin: 0 2rem;
+}
+
+.nav-bar-desktop a {
+  text-decoration: none;
+  color: #f0f4ef;
+}
+
+.nav-bar img {
+  max-width: 32px;
+}
+
+.nav-toggle {
+  color: #344966;
+  padding: 1rem 0;
+  height: 100%;
+  width: 0;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  margin: 0;
+  position: fixed;
+  overflow-x: hidden;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+  background-color: #f0f4ef;
+  transition: width 0.25s;
+  white-space: pre;
+}
+
+.show-menu {
+  width: 350px;
+}
+
+.nav-list {
+  list-style: none;
+  text-align: center;
+  margin: 0;
+}
+
+.close-nav {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+}
+
+a > h2::after,
+.nav-list > li::after {
+  display: block;
+  content: '';
+  border-bottom: solid 3px #e275b7;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+
+a > h2:hover::after,
+.nav-list > li:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-item > a {
+  text-decoration: none;
+  font-size: 36px;
+  margin: 2rem 0;
+  text-align: right;
+}
+
+.nav-item > a:visited {
+  color: #344966;
+}
+
+.home-text {
+  font-size: 36px;
+  text-align: center;
+  margin: 0 2rem;
+  padding: 0 2rem 2rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.search-icon {
+  transition: transform 0.5s;
+}
+
+.search-icon:hover {
+  transform: rotate(90deg);
+}
+
+.search-btn {
+  padding: 10px 30px;
+  background-color: #e275b7;
+  color: #344966;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 24px;
+  transition: background-color 0.25s;
+}
+
+.search-btn:hover {
+  background-color: #a3668b;
+}
+
+.search-btn img {
+  width: 24px;
+  position: relative;
+  top: 5px;
+  margin-right: 10px;
+}
+
+main,
+.home {
+  height: 100vh;
+}
+
+.views {
+  padding: 1rem 0;
+}
+
+.keywords,
+.small-input,
+.meal-type-wheel {
+  border: 1px solid #344966;
+  border-radius: 5px;
+  height: 30px;
+}
+
+.keywords {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.small-input {
+  width: 50px;
+  margin-left: 5px;
+}
+
+.keywords::placeholder {
+  color: #69788c;
+}
+
+form label {
+  font-weight: 500;
+}
+
+.meal-type-wheel {
+  width: 350px;
+  margin-left: 10px;
+  color: #69788c;
+}
+
+.margin-bot {
+  margin-bottom: 1rem;
+}
+
+.toggle-button {
+  width: 140px;
+  background-color: #f0f4ef;
+  border: 1px solid #69788c;
+  height: 34px;
+  color: #344966;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 10px;
+  transition: 0.5s;
+}
+
+.toggled {
+  background-color: #344966;
+  color: #f0f4ef;
+}
+
+.toggle-options {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #69788c;
+  background-color: #f0f4ef;
+  border-radius: 50px;
+  margin-top: 1rem;
+  color: #69788c;
+  font-size: 16px;
+  transition: 0.25s;
+}
+
+.show-options {
+  background-color: #e8ebe8;
+}
+
+.options {
+  max-height: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.show-more-options {
+  max-height: 480px;
+}
+
+.submit-search:hover {
+  cursor: pointer;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media only screen and (min-width: 1115px) {
+  .col-half {
+    flex-basis: 50%;
+  }
+
+  .nav-bar-desktop {
+    display: flex;
+  }
+
+  .nav-bar {
+    display: none;
+  }
+
+  .label-kw {
+    justify-content: flex-end;
+    padding-right: 10px;
+    flex-basis: 20%;
+  }
+
+  .label-excl {
+    justify-content: flex-end;
+    padding-right: 10px;
+    flex-basis: 30%;
+  }
+}

@@ -1,0 +1,23 @@
+.hidden {
+  display: none !important;
+}
+
+.container {
+  max-width: 992px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col,
+.col-half {
+  flex-basis: 100%;
+}
+
+.col-third {
+  flex-basis: calc(100% / 3);
+}
