@@ -75,7 +75,7 @@ function submitSearch(event) {
   };
   getButtonOptions($toggleButtonList, searchObj);
   var searchURL = generateSearchURL(searchObj);
-  console.log(searchURL);
+  data.search = makeQuery(searchURL);
 }
 
 function getKeyWords(str) {
@@ -146,4 +146,12 @@ function getOptionsURL(obj) {
     result += obj.exclude[i];
   }
   return result;
+}
+
+function makeQuery(url) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+  return xhr;
 }

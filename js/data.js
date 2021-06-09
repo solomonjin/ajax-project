@@ -2,5 +2,6 @@
 
 var data = {
   search: null,
-  view: null
+  view: null,
+  favorites: []
 };
