@@ -39,11 +39,10 @@
       </a>
       <a href="#"><img src="images/search.svg" alt="search icon" class="search-icon"></a>
     </div>
-
   </header>
   <main>
     <div class="container views">
-      <div class="container" data-view="home">
+      <div class="container hidden" data-view="home">
         <div class="row justify-center align-center">
           <div class="col">
             <h1 class="home-text">Begin by searching for a recipe</h1>
@@ -55,6 +54,41 @@
             </button>
           </div>
         </div>
+      </div>
+      <div class="container" data-view="search">
+        <form class="search-form" action="" method="get">
+          <div class="row justify-center">
+            <div class="col-half label-kw row">
+              <label for="keywords">Keywords</label>
+            </div>
+            <div class="col-half">
+              <input class="keywords" type="text" id="keywords"
+              placeholder="recipe name, ingredients, etc">
+            </div>
+            <div class="col-half justify-between margin-bot">
+              <div class="col-half justify-center">
+                <label for="calories">Calories</label>
+                <input class="small-input" type="text" id="calories-from" placeholder="From">
+                <input class="small-input" type="text" id="calories-to" placeholder="To">
+              </div>
+              <div class="col-half justify-center">
+                <label for="ingredients">Max Ingredients</label>
+                <input class="small-input" type="text" id="ingredients" placeholder="Up to">
+              </div>
+            </div>
+            <div class="col-half justify-center margin-bot">
+              <label for="meal-type">Meal Type</label>
+              <select class="meal-type-wheel" name="meal" id="meal-type">
+                <option value="">Select an Option</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snack">Snack</option>
+                <option value="teatime">Teatime</option>
+              </select>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </main>
