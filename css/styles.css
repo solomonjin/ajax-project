@@ -14,6 +14,11 @@
   justify-content: space-between;
 }
 
+.justify-even {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .align-center {
   display: flex;
   align-content: center;
@@ -58,7 +63,7 @@ h2 {
 
 .nav-toggle {
   color: #344966;
-  padding: 4rem 0;
+  padding: 1rem 0;
   height: 100%;
   width: 0;
   z-index: 1;
@@ -70,6 +75,7 @@ h2 {
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
   background-color: #f0f4ef;
   transition: width 0.25s;
+  white-space: pre;
 }
 
 .show-menu {
@@ -79,16 +85,13 @@ h2 {
 .nav-list {
   list-style: none;
   text-align: center;
+  margin: 0;
 }
 
 .close-nav {
   position: absolute;
   top: 40px;
   left: 20px;
-}
-
-.nav-list > li {
-  margin: 1rem 0;
 }
 
 a > h2::after,
@@ -157,8 +160,9 @@ button:hover {
   margin-right: 10px;
 }
 
-[data-view="home"] {
-  transform: translateY(150%);
+main,
+.home {
+  height: 100vh;
 }
 
 .views {
@@ -170,6 +174,7 @@ button:hover {
 .meal-type-wheel {
   border: 1px solid #344966;
   border-radius: 5px;
+  height: 30px;
 }
 
 .keywords {
@@ -198,6 +203,48 @@ form label {
 
 .margin-bot {
   margin-bottom: 1rem;
+}
+
+.toggle-button {
+  width: 140px;
+  background-color: #f0f4ef;
+  border: 1px solid #69788c;
+  height: 34px;
+  color: #344966;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 10px;
+  transition: 0.5s;
+}
+
+.toggled {
+  background-color: #344966;
+  color: #f0f4ef;
+}
+
+.toggle-options {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #69788c;
+  background-color: #f0f4ef;
+  border-radius: 50px;
+  margin-top: 1rem;
+  color: #69788c;
+  font-size: 16px;
+  transition: 0.25s;
+}
+
+.show-options {
+  background-color: #e8ebe8;
+}
+
+.options {
+  max-height: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.show-more-options {
+  max-height: 404px;
 }
 
 @media only screen and (min-width: 1115px) {
