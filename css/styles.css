@@ -244,7 +244,11 @@ form label {
 }
 
 .show-more-options {
-  max-height: 404px;
+  max-height: 480px;
+}
+
+.submit-search:hover {
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 1115px) {
@@ -264,5 +268,11 @@ form label {
     justify-content: flex-end;
     padding-right: 10px;
     flex-basis: 20%;
+  }
+
+  .label-excl {
+    justify-content: flex-end;
+    padding-right: 10px;
+    flex-basis: 30%;
   }
 }

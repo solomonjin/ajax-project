@@ -42,7 +42,7 @@
   </header>
   <main>
     <div class="container">
-      <div class="container views home align-center" data-view="home">
+      <div class="container views home align-center justify-center" data-view="home">
         <div class="row justify-center align-center">
           <div class="col">
             <h1 class="home-text">Begin by searching for a recipe</h1>
@@ -68,8 +68,8 @@
             <div class="col-half justify-between margin-bot">
               <div class="col-half justify-center">
                 <label for="calories">Calories</label>
-                <input class="small-input" type="text" id="calories-from" placeholder="From">
-                <input class="small-input" type="text" id="calories-to" placeholder="To">
+                <input class="small-input" type="text" id="caloriesFrom" placeholder="From">
+                <input class="small-input" type="text" id="caloriesTo" placeholder="To">
               </div>
               <div class="col-half justify-center">
                 <label for="ingredients">Max Ingredients</label>
@@ -129,7 +129,7 @@
             <div class="col">
               <button class="toggle-options margin-bot">More Options</button>
             </div>
-            <div class="options hidden">
+            <div class="options row hidden">
               <div class="col">
                 <label for="diet">Diets</label>
               </div>
@@ -174,8 +174,14 @@
                   <button class="toggle-button" data-type="diet" data-value="peanut-free">Peanuts</button>
                 </div>
               </div>
+              <div class="col-half label-excl row justify-center">
+                <label for="exclusions">Exclusions</label>
+              </div>
+              <div class="col-half">
+                <input class="keywords" type="text" id="exclusions" placeholder="ingredients to exclude, separated by spaces">
+              </div>
             </div>
-            <button class="search-btn submit-search" type="submit">Search</button>
+            <button type="submit" class="search-btn submit-search">Search</button>
           </div>
         </form>
       </div>
