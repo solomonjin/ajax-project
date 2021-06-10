@@ -23,6 +23,7 @@ $navList.addEventListener('click', clickNavList);
 $navBar.addEventListener('click', clickNavList);
 $searchButton.addEventListener('click', showSearchForm);
 $submitSearchBtn.addEventListener('click', submitSearch);
+window.addEventListener('DOMContentLoaded', handleContentLoad);
 
 function openNavMenu(event) {
   $toggleNavMenu.classList.add('show-menu');
@@ -52,6 +53,7 @@ function showSearchForm(event) {
 }
 
 function switchView(view) {
+  data.view = view;
   for (var i = 0; i < $viewContainer.length; i++) {
     if ($viewContainer[i].getAttribute('data-view') === view) $viewContainer[i].classList.remove('hidden');
     else $viewContainer[i].classList.add('hidden');
@@ -164,7 +166,7 @@ function makeQuery(url) {
 
 function loadData(event) {
   data.search = this.response;
-  updatePageHeader('search');
+  updatePageHeader('recipe-list');
   generateRecipeList(data.search.hits);
   switchView('recipe-list');
   resetSearchButton();
@@ -285,7 +287,7 @@ function generateRecipeDOM(recipe, i) {
 }
 
 function updatePageHeader(view) {
-  if (view === 'search') {
+  if (view === 'recipe-list') {
     var $recipeCount = document.createElement('span');
     $recipeCount.textContent = data.search.count;
 
@@ -322,4 +324,12 @@ function showSearching() {
 
 function resetSearchButton() {
   $submitSearchBtn.textContent = 'Search';
+}
+
+function handleContentLoad(event) {
+  if (data.view === 'recipe-list') {
+    updatePageHeader('recipe-list');
+    generateRecipeList(data.search.hits);
+  }
+  switchView(data.view);
 }
