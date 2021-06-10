@@ -251,6 +251,10 @@ form label {
   max-height: 480px;
 }
 
+.submit-search {
+  width: 133px;
+}
+
 .submit-search:hover {
   cursor: pointer;
 }
@@ -294,6 +298,21 @@ h5 {
 
 .header-container {
   margin: 0 auto;
+}
+
+@keyframes searching {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+img.searching {
+  margin-right: 0;
+  animation: searching 1s linear infinite;
 }
 
 @media only screen and (min-width: 768px) {

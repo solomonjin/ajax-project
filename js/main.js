@@ -67,6 +67,7 @@ function clickNavList(event) {
 }
 
 function submitSearch(event) {
+  showSearching();
   var $toggleButtonList = document.querySelectorAll('.toggle-button');
   var searchObj = {
     keywords: getKeyWords($searchForm.keywords.value.toLowerCase()),
@@ -121,7 +122,7 @@ function getExclusions(str) {
   if (!str) return exclusions;
   var list = str.split(' ');
   for (var i = 0; i < list.length; i++) {
-    exclusions.push('&excluded=' + list[i]);
+    if (list[i] !== '') exclusions.push('&excluded=' + list[i]);
   }
   return exclusions;
 }
@@ -167,6 +168,7 @@ function loadData(event) {
   updatePageHeader('search');
   generateRecipeList(data.search.hits);
   switchView('recipe-list');
+  resetSearchButton();
 }
 
 function generateRecipeDOM(recipe, i) {
@@ -309,4 +311,16 @@ function generateRecipeList(recipes) {
   for (var i = 0; i < recipes.length; i++) {
     $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe, i));
   }
+}
+
+function showSearching() {
+  var $loading = document.createElement('img');
+  $loading.setAttribute('src', 'images/rotate-cw.svg');
+  $loading.className = 'searching';
+  $submitSearchBtn.textContent = '';
+  $submitSearchBtn.appendChild($loading);
+}
+
+function resetSearchButton() {
+  $submitSearchBtn.textContent = 'Search';
 }
