@@ -347,10 +347,50 @@ function generateMoreInfoDOM(recipe) {
   }
 
   var $nutritionText = document.createElement('h3');
+  $nutritionText.textContent = 'Nutrition';
   $nutritionText.className = 'info-header';
+
+  var $instructionsURL = document.createElement('a');
+  $instructionsURL.setAttribute('href', recipe.url);
+  $instructionsURL.textContent = 'Full Instructions';
+
+  var $instructionsText = document.createElement('h5');
+  $instructionsText.className = 'instructions-url';
+  $instructionsText.appendChild($instructionsURL);
+
+  var $instructionsCol = document.createElement('div');
+  $instructionsCol.className = 'col';
+  $instructionsCol.appendChild($instructionsText);
 
   var $nutritionInfo = document.createElement('div');
   $nutritionInfo.className = 'column-half nutrition-info';
+  $nutritionInfo.appendChild($nutritionText);
+  $nutritionInfo.appendChild($nutrientTable);
+
+  var $ingredientList = document.createElement('ul');
+  $ingredientList.className = 'ingredient-list';
+  for (var i = 0; i < recipe.ingredientLines.length; i++) {
+    var $ingredient = document.createElement('li');
+    $ingredient.textContent = recipe.ingredientLines[i];
+    $ingredientList.appendChild($ingredient);
+  }
+
+  var $ingredientsText = document.createElement('h3');
+  $ingredientsText.className = 'info-header';
+  $ingredientsText.textContent = 'Ingredients';
+
+  var $ingredientsInfo = document.createElement('div');
+  $ingredientsInfo.className = 'column-half';
+  $ingredientsInfo.appendChild($ingredientsText);
+  $ingredientsInfo.appendChild($ingredientList);
+  $ingredientsInfo.appendChild($instructionsCol);
+
+  var $moreInfo = document.createElement('div');
+  $moreInfo.className = 'col row more-info';
+  $moreInfo.appendChild($ingredientsInfo);
+  $moreInfo.appendChild($nutritionInfo);
+
+  return $moreInfo;
 }
 
 function generateTableRowDOM(recipe, key) {
