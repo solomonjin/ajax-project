@@ -24,6 +24,7 @@ $navBar.addEventListener('click', clickNavList);
 $searchButton.addEventListener('click', showSearchForm);
 $submitSearchBtn.addEventListener('click', submitSearch);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
+document.addEventListener('click', clickOnRecipe);
 
 function openNavMenu(event) {
   $toggleNavMenu.classList.add('show-menu');
@@ -457,4 +458,37 @@ function handleContentLoad(event) {
     generateRecipeList(data.search.hits);
   }
   switchView(data.view);
+}
+
+function clickOnRecipe(event) {
+  if (!event.target.closest('.col-65')) return;
+
+  var $recipeContainer = event.target.closest('.recipe-container');
+  var moreInfoBox = $recipeContainer.querySelector('.more-info');
+  expandElement(moreInfoBox, 'open');
+}
+
+function expandElement(elem, toggleClass) {
+  elem.style.height = '';
+  elem.style.transition = 'none';
+  var startHeight = window.getComputedStyle(elem).height;
+
+  elem.classList.toggle(toggleClass);
+  var height = window.getComputedStyle(elem).height;
+
+  elem.style.height = startHeight;
+
+  requestAnimationFrame(() => {
+    elem.style.transition = '';
+    requestAnimationFrame(() => {
+      elem.style.height = height;
+    });
+  });
+
+  elem.addEventListener('transitionend', resetHeight);
+}
+
+function resetHeight(event) {
+  this.style.height = '';
+  this.removeEventListener('transitionend', resetHeight);
 }

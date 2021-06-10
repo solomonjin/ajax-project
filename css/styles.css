@@ -98,7 +98,7 @@ h2 {
   left: 20px;
 }
 
-a > h2::after,
+h2 > a::after,
 .nav-list > li::after {
   display: block;
   content: '';
@@ -107,7 +107,7 @@ a > h2::after,
   transition: transform 250ms ease-in-out;
 }
 
-a > h2:hover::after,
+h2 > a:hover::after,
 .nav-list > li:hover::after {
   transform: scaleX(1);
 }
@@ -283,7 +283,7 @@ h5 {
   margin: 1rem auto 0;
 }
 
-.recipe-container:hover {
+.col-65:hover {
   cursor: pointer;
 }
 
@@ -345,8 +345,12 @@ table,
 
 .more-info {
   overflow: hidden;
-  transition: all 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out;
   height: 0;
+}
+
+.more-info.open {
+  height: auto;
 }
 
 @media only screen and (min-width: 768px) {
