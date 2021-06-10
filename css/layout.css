@@ -33,3 +33,7 @@
 .col-65 {
   flex-basis: 65%;
 }
+
+.col-90 {
+  flex-basis: 90%;
+}

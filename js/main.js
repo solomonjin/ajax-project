@@ -164,8 +164,8 @@ function setData(event) {
 
 function generateRecipeDOM(recipe) {
   /*
-  <div class="col-half recipe-container">
-    <div class="row">
+  <div class="col-half">
+    <div class="col-90 row recipe-container">
       <div class="col-35 justify-start align-center">
         <img class="thumbnail" src="https://www.edamam.com/web-img/15b/15b3c28a2df3910ec02e68b771de33a3.jpg">
       </div>
@@ -175,10 +175,10 @@ function generateRecipeDOM(recipe) {
         </div>
         <div class="col row">
           <div class="column-half">
-            <h4 class="recipe-info"><span class="calorie-num">####</span> Calories</h4>
+            <h5 class="recipe-info"><span class="calorie-num">####</span> Calories/Serv</h5>
           </div>
           <div class="column-half text-right">
-            <h4 class="recipe-info"><span class="ingr-num">##</span> Ingredients</h4>
+            <h5 class="recipe-info"><span class="ingr-num">##</span> Ingredients</h5>
           </div>
         </div>
         <div class="col justify-end">
@@ -201,7 +201,7 @@ function generateRecipeDOM(recipe) {
   $calorieNum.className = 'calorie-num';
   $calorieNum.textContent = parseInt(recipe.calories / recipe.yield);
 
-  var $calorieText = document.createElement('h4');
+  var $calorieText = document.createElement('h5');
   $calorieText.className = 'recipe-info';
   $calorieText.textContent = ' Calories/Serv';
   $calorieText.prepend($calorieNum);
@@ -214,7 +214,7 @@ function generateRecipeDOM(recipe) {
   $ingrNum.className = 'ingr-num';
   $ingrNum.textContent = recipe.ingredientLines.length;
 
-  var $ingrText = document.createElement('h4');
+  var $ingrText = document.createElement('h5');
   $ingrText.className = 'recipe-info';
   $ingrText.textContent = ' Ingredients';
   $ingrText.prepend($ingrNum);
@@ -256,14 +256,19 @@ function generateRecipeDOM(recipe) {
   $imgContainer.className = 'col-35 justify-start align-center';
   $imgContainer.appendChild($thumbNail);
 
+  var $recipeContainer = document.createElement('div');
+  $recipeContainer.className = 'row col-90 recipe-container';
+  $recipeContainer.appendChild($imgContainer);
+  $recipeContainer.appendChild($textContainer);
+
   var $row = document.createElement('div');
   $row.className = 'row';
-  $row.appendChild($imgContainer);
-  $row.appendChild($textContainer);
+  $row.appendChild($recipeContainer);
 
   var $recipe = document.createElement('div');
-  $recipe.className = 'col-half recipe-container';
+  $recipe.className = 'col-half';
   $recipe.appendChild($row);
 
+  $recipeListContainer.appendChild($recipe);
   return $recipe;
 }
