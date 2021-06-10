@@ -24,6 +24,10 @@
   align-content: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .nav-bar-desktop,
 .nav-bar {
   background-color: #344966;
@@ -284,7 +288,7 @@ h4 {
 
 .favorite-icon {
   width: 18px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 @media only screen and (min-width: 1115px) {

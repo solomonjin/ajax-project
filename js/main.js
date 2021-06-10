@@ -9,6 +9,7 @@ var $viewContainer = document.querySelectorAll('.views');
 var $navList = document.querySelector('.nav-list');
 var $searchButton = document.querySelector('.search-button');
 var $submitSearchBtn = document.querySelector('.submit-search');
+var $recipeListContainer = document.querySelector('.recipe-list');
 
 $openNavBtn.addEventListener('click', openNavMenu);
 $closeNavBtn.addEventListener('click', closeNavMenu);
@@ -76,6 +77,7 @@ function submitSearch(event) {
   getButtonOptions($toggleButtonList, searchObj);
   var searchURL = generateSearchURL(searchObj);
   makeQuery(searchURL);
+  generateRecipeList(data.search.hits);
 }
 
 function getKeyWords(str) {
@@ -158,4 +160,110 @@ function makeQuery(url) {
 
 function setData(event) {
   data.search = this.response;
+}
+
+function generateRecipeDOM(recipe) {
+  /*
+  <div class="col-half recipe-container">
+    <div class="row">
+      <div class="col-35 justify-start align-center">
+        <img class="thumbnail" src="https://www.edamam.com/web-img/15b/15b3c28a2df3910ec02e68b771de33a3.jpg">
+      </div>
+      <div class="col-65 row">
+        <div class="col">
+          <h3 class="recipe-name">Recipe Name</h3>
+        </div>
+        <div class="col row">
+          <div class="column-half">
+            <h4 class="recipe-info"><span class="calorie-num">####</span> Calories</h4>
+          </div>
+          <div class="column-half text-right">
+            <h4 class="recipe-info"><span class="ingr-num">##</span> Ingredients</h4>
+          </div>
+        </div>
+        <div class="col justify-end">
+          <a href="#"><img src="images/heart.svg" alt="Favorites icon" class="favorite-icon"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  */
+
+  var $recipeName = document.createElement('h3');
+  $recipeName.className = 'recipe-name';
+  $recipeName.textContent = recipe.label;
+
+  var $recipeNameCol = document.createElement('div');
+  $recipeNameCol.className = 'col';
+  $recipeNameCol.appendChild($recipeName);
+
+  var $calorieNum = document.createElement('span');
+  $calorieNum.className = 'calorie-num';
+  $calorieNum.textContent = parseInt(recipe.calories / recipe.yield);
+
+  var $calorieText = document.createElement('h4');
+  $calorieText.className = 'recipe-info';
+  $calorieText.textContent = ' Calories/Serv';
+  $calorieText.prepend($calorieNum);
+
+  var $calorieCol = document.createElement('div');
+  $calorieCol.className = 'column-half';
+  $calorieCol.appendChild($calorieText);
+
+  var $ingrNum = document.createElement('span');
+  $ingrNum.className = 'ingr-num';
+  $ingrNum.textContent = recipe.ingredientLines.length;
+
+  var $ingrText = document.createElement('h4');
+  $ingrText.className = 'recipe-info';
+  $ingrText.textContent = ' Ingredients';
+  $ingrText.prepend($ingrNum);
+
+  var $ingrCol = document.createElement('div');
+  $ingrCol.className = 'column-half text-right';
+  $ingrCol.appendChild($ingrText);
+
+  var $calIngrCol = document.createElement('div');
+  $calIngrCol.className = 'col row';
+  $calIngrCol.appendChild($calorieCol);
+  $calIngrCol.appendChild($ingrCol);
+
+  var $heartIcon = document.createElement('img');
+  $heartIcon.setAttribute('src', 'images/heart.svg');
+  $heartIcon.setAttribute('alt', 'favorites icon');
+  $heartIcon.className = 'favorite-icon';
+
+  var $anchorWrap = document.createElement('a');
+  $anchorWrap.setAttribute('href', '#');
+  $anchorWrap.appendChild($heartIcon);
+
+  var $heartIconCol = document.createElement('div');
+  $heartIconCol.className = 'col justify-end';
+  $heartIconCol.appendChild($anchorWrap);
+
+  var $textContainer = document.createElement('div');
+  $textContainer.className = 'col-65 row';
+  $textContainer.appendChild($recipeNameCol);
+  $textContainer.appendChild($calIngrCol);
+  $textContainer.appendChild($heartIconCol);
+
+  var $thumbNail = document.createElement('img');
+  $thumbNail.setAttribute('src', recipe.image);
+  $thumbNail.setAttribute('alt', 'recipe preview');
+  $thumbNail.className = 'thumbnail';
+
+  var $imgContainer = document.createElement('div');
+  $imgContainer.className = 'col-35 justify-start align-center';
+  $imgContainer.appendChild($thumbNail);
+
+  var $row = document.createElement('div');
+  $row.className = 'row';
+  $row.appendChild($imgContainer);
+  $row.appendChild($textContainer);
+
+  var $recipe = document.createElement('div');
+  $recipe.className = 'col-half recipe-container';
+  $recipe.appendChild($row);
+
+  return $recipe;
 }
