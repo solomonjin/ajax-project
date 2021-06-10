@@ -24,6 +24,10 @@
   align-content: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .nav-bar-desktop,
 .nav-bar {
   background-color: #344966;
@@ -162,7 +166,7 @@ button:hover {
 
 main,
 .home {
-  height: 100vh;
+  height: 80vh;
 }
 
 .views {
@@ -247,6 +251,10 @@ form label {
   max-height: 480px;
 }
 
+.submit-search {
+  width: 133px;
+}
+
 .submit-search:hover {
   cursor: pointer;
 }
@@ -255,6 +263,62 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+h3,
+h5 {
+  font-weight: 400;
+}
+
+.recipe-info,
+.recipe-name {
+  margin-top: 0;
+}
+
+.recipe-container {
+  background-color: #e8ebe8;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0.5rem auto;
+}
+
+.thumbnail {
+  width: 128px;
+}
+
+.ingr-num,
+.calorie-num {
+  color: #e275b7;
+}
+
+.favorite-icon {
+  width: 18px;
+  margin-right: 10px;
+}
+
+.header-container {
+  margin: 0 auto;
+}
+
+@keyframes searching {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+img.searching {
+  margin-right: 0;
+  animation: searching 1s linear infinite;
+}
+
+@media only screen and (min-width: 768px) {
+  .thumbnail {
+    width: 180px;
+  }
 }
 
 @media only screen and (min-width: 1115px) {
@@ -280,5 +344,9 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: flex-end;
     padding-right: 10px;
     flex-basis: 30%;
+  }
+
+  .thumbnail {
+    width: 128px;
   }
 }
