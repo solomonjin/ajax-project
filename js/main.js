@@ -43,7 +43,6 @@ function toggleOptions(event) {
   event.preventDefault();
   $toggleOptionsBtn.classList.toggle('show-options');
   $moreOptionsForm.classList.toggle('show-more-options');
-  $moreOptionsForm.classList.toggle('hidden');
   if (event.target.textContent === 'More Options') event.target.textContent = 'Less Options';
   else event.target.textContent = 'More Options';
 }
