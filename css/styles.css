@@ -243,13 +243,13 @@ form label {
 }
 
 .options {
-  max-height: 0;
+  height: 0;
   overflow-y: hidden;
   transition: all 0.5s ease-in-out 0.2s;
 }
 
 .show-more-options {
-  max-height: 480px;
+  height: 480px;
 }
 
 .submit-search {
@@ -280,7 +280,7 @@ h5 {
   background-color: #e8ebe8;
   border-radius: 5px;
   padding: 5px;
-  margin: 0.5rem auto;
+  margin: 1rem auto 0;
 }
 
 .recipe-container:hover {
@@ -320,6 +320,25 @@ img.searching {
   animation: searching 1s linear infinite;
 }
 
+.info-header {
+  text-align: center;
+  border-bottom: 2px solid #e275b7;
+}
+
+table {
+  width: 100%;
+  text-align: right;
+}
+
+table,
+.ingredient-list {
+  font-size: 14px;
+}
+
+.instructions-url {
+  text-align: right;
+}
+
 @media only screen and (min-width: 768px) {
   .thumbnail {
     width: 180px;
@@ -355,3 +374,51 @@ img.searching {
     width: 128px;
   }
 }
+
+
+/*
+<div class="col row more-info">
+  <div class="column-half">
+    <h3 class="info-header">Ingredients</h3>
+    <ul class="ingredient-list">
+      <li>ingredient 1</li>
+      <li>ingredient 2</li>
+    </ul>
+  </div>
+  <div class="column-half nutrition-info">
+    <h3 class="info-header">Nutrition</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Fat</td>
+          <td>69g</td>
+          <td>106%</td>
+        </tr>
+        <tr>
+          <td>Carbs</td>
+          <td>44g</td>
+          <td>15%</td>
+        </tr>
+        <tr>
+          <td>Sugars</td>
+          <td>4g</td>
+          <td>0%</td>
+        </tr>
+        <tr>
+          <td>Protein</td>
+          <td>58g</td>
+          <td>115%</td>
+        </tr>
+        <tr>
+          <td>Sodium</td>
+          <td>1722mg</td>
+          <td>72%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col">
+      <h5 class="instructions-url"><a href="#">Full Instructions</a></h5>
+    </div>
+  </div>
+</div>
+*/

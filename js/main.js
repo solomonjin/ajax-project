@@ -176,24 +176,69 @@ function generateRecipeDOM(recipe, i) {
   /*
   <div class="col-half">
     <div class="row">
-      <div class="row col-90 recipe-container">
-        <div class="col-35 justify-start align-center">
-          <img src="https://www.edamam.com/web-img/7ad/7ad0f60865ab1a5b8c0a3a5e1fe1c1ca.jpg" alt="recipe preview" class="thumbnail">
-        </div>
-        <div class="col-65 row">
-          <div class="col">
-            <h3 class="recipe-name">Waffle Iron Ramen Recipe</h3>
+      <div class="row col-90 recipe-container" data-index="0">
+        <div class="row">
+          <div class="col-35 justify-start align-center"><img
+              src="https://www.edamam.com/web-img/d13/d1317737f946a1a0246f6fb14882260d.jpg" alt="recipe preview"
+              class="thumbnail"></div>
+          <div class="col-65 row">
+            <div class="col">
+              <h3 class="recipe-name">Dinner Tonight: Shrimp Scampi with Pasta Recipe</h3>
+            </div>
+            <div class="col row">
+              <div class="column-half">
+                <h5 class="recipe-info"><span class="calorie-num">775</span> Calories/Serv</h5>
+              </div>
+              <div class="column-half text-right">
+                <h5 class="recipe-info"><span class="ingr-num">11</span> Ingredients</h5>
+              </div>
+            </div>
+            <div class="col justify-end"><a href="#"><img src="images/heart.svg" alt="favorites icon" class="favorite-icon"></a>
+            </div>
           </div>
-          <div class="col row">
+          <div class="col row more-info">
             <div class="column-half">
-              <h5 class="recipe-info"><span class="calorie-num">606</span> Calories/Serv</h5>
+              <h3 class="info-header">Ingredients</h3>
+              <ul class="ingredient-list">
+                <li>ingredient 1</li>
+                <li>ingredient 2</li>
+              </ul>
             </div>
-            <div class="column-half text-right">
-              <h5 class="recipe-info"><span class="ingr-num">7</span> Ingredients</h5>
+            <div class="column-half nutrition-info">
+              <h3 class="info-header">Nutrition</h3>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Fat</td>
+                    <td>69g</td>
+                    <td>106%</td>
+                  </tr>
+                  <tr>
+                    <td>Carbs</td>
+                    <td>44g</td>
+                    <td>15%</td>
+                  </tr>
+                  <tr>
+                    <td>Sugars</td>
+                    <td>4g</td>
+                    <td>0%</td>
+                  </tr>
+                  <tr>
+                    <td>Protein</td>
+                    <td>58g</td>
+                    <td>115%</td>
+                  </tr>
+                  <tr>
+                    <td>Sodium</td>
+                    <td>1722mg</td>
+                    <td>72%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col">
+                <h5 class="instructions-url"><a href="#">Full Instructions</a></h5>
+              </div>
             </div>
-          </div>
-          <div class="col justify-end">
-            <a href="#"><img src="images/heart.svg" alt="favorites icon" class="favorite-icon"></a>
           </div>
         </div>
       </div>
@@ -268,11 +313,18 @@ function generateRecipeDOM(recipe, i) {
   $imgContainer.className = 'col-35 justify-start align-center';
   $imgContainer.appendChild($thumbNail);
 
+  var $moreInfoContainer = generateMoreInfoDOM(recipe);
+
+  var $innerRow = document.createElement('div');
+  $innerRow.className = 'row';
+  $innerRow.appendChild($imgContainer);
+  $innerRow.appendChild($textContainer);
+  $innerRow.appendChild($moreInfoContainer);
+
   var $recipeContainer = document.createElement('div');
   $recipeContainer.className = 'row col-90 recipe-container';
   $recipeContainer.setAttribute('data-index', i);
-  $recipeContainer.appendChild($imgContainer);
-  $recipeContainer.appendChild($textContainer);
+  $recipeContainer.appendChild($innerRow);
 
   var $row = document.createElement('div');
   $row.className = 'row';
@@ -284,6 +336,39 @@ function generateRecipeDOM(recipe, i) {
 
   $recipeListContainer.appendChild($recipe);
   return $recipe;
+}
+
+function generateMoreInfoDOM(recipe) {
+  var $tBody = document.createElement('tbody');
+  var $nutrientTable = document.createElement('table');
+  $nutrientTable.appendChild($tBody);
+  for (var key in recipe.totalDaily) {
+    $tBody.appendChild(generateTableRowDOM(recipe, key));
+  }
+
+  var $nutritionText = document.createElement('h3');
+  $nutritionText.className = 'info-header';
+
+  var $nutritionInfo = document.createElement('div');
+  $nutritionInfo.className = 'column-half nutrition-info';
+}
+
+function generateTableRowDOM(recipe, key) {
+  var $label = document.createElement('td');
+  $label.textContent = recipe.totalDaily[key].label;
+
+  var $amount = document.createElement('td');
+  $amount.textContent = Math.round(recipe.totalNutrients[key].quantity) + recipe.totalNutrients[key].unit;
+
+  var $percent = document.createElement('td');
+  $percent.textContent = Math.round(recipe.totalDaily[key].quantity) + '%';
+
+  var $row = document.createElement('tr');
+  $row.appendChild($label);
+  $row.appendChild($amount);
+  $row.appendChild($percent);
+
+  return $row;
 }
 
 function updatePageHeader(view) {
