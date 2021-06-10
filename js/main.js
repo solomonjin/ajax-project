@@ -5,8 +5,10 @@ var $searchForm = document.querySelector('.search-form');
 var $toggleOptionsBtn = document.querySelector('.toggle-options');
 var $moreOptionsForm = document.querySelector('.options');
 var $searchIcon = document.querySelector('.search-icon');
+var $searchIconDT = document.querySelector('.nav-bar-desktop .search-icon');
 var $viewContainer = document.querySelectorAll('.views');
 var $navList = document.querySelector('.nav-list');
+var $navBar = document.querySelector('.nav-bar-desktop');
 var $searchButton = document.querySelector('.search-button');
 var $submitSearchBtn = document.querySelector('.submit-search');
 var $recipeListContainer = document.querySelector('.recipe-list');
@@ -16,7 +18,9 @@ $closeNavBtn.addEventListener('click', closeNavMenu);
 $searchForm.addEventListener('click', toggleButton);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
 $searchIcon.addEventListener('click', showSearchForm);
+$searchIconDT.addEventListener('click', showSearchForm);
 $navList.addEventListener('click', clickNavList);
+$navBar.addEventListener('click', clickNavList);
 $searchButton.addEventListener('click', showSearchForm);
 $submitSearchBtn.addEventListener('click', submitSearch);
 
@@ -77,7 +81,7 @@ function submitSearch(event) {
   getButtonOptions($toggleButtonList, searchObj);
   var searchURL = generateSearchURL(searchObj);
   makeQuery(searchURL);
-  generateRecipeList(data.search.hits);
+  destroyChildren($recipeListContainer);
 }
 
 function getKeyWords(str) {
@@ -154,35 +158,40 @@ function makeQuery(url) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url);
   xhr.responseType = 'json';
-  xhr.addEventListener('load', setData);
+  xhr.addEventListener('load', loadData);
   xhr.send();
 }
 
-function setData(event) {
+function loadData(event) {
   data.search = this.response;
+  updatePageHeader('search');
+  generateRecipeList(data.search.hits);
+  switchView('recipe-list');
 }
 
-function generateRecipeDOM(recipe) {
+function generateRecipeDOM(recipe, i) {
   /*
   <div class="col-half">
-    <div class="col-90 row recipe-container">
-      <div class="col-35 justify-start align-center">
-        <img class="thumbnail" src="https://www.edamam.com/web-img/15b/15b3c28a2df3910ec02e68b771de33a3.jpg">
-      </div>
-      <div class="col-65 row">
-        <div class="col">
-          <h3 class="recipe-name">Recipe Name</h3>
+    <div class="row">
+      <div class="row col-90 recipe-container">
+        <div class="col-35 justify-start align-center">
+          <img src="https://www.edamam.com/web-img/7ad/7ad0f60865ab1a5b8c0a3a5e1fe1c1ca.jpg" alt="recipe preview" class="thumbnail">
         </div>
-        <div class="col row">
-          <div class="column-half">
-            <h5 class="recipe-info"><span class="calorie-num">####</span> Calories/Serv</h5>
+        <div class="col-65 row">
+          <div class="col">
+            <h3 class="recipe-name">Waffle Iron Ramen Recipe</h3>
           </div>
-          <div class="column-half text-right">
-            <h5 class="recipe-info"><span class="ingr-num">##</span> Ingredients</h5>
+          <div class="col row">
+            <div class="column-half">
+              <h5 class="recipe-info"><span class="calorie-num">606</span> Calories/Serv</h5>
+            </div>
+            <div class="column-half text-right">
+              <h5 class="recipe-info"><span class="ingr-num">7</span> Ingredients</h5>
+            </div>
           </div>
-        </div>
-        <div class="col justify-end">
-          <a href="#"><img src="images/heart.svg" alt="Favorites icon" class="favorite-icon"></a>
+          <div class="col justify-end">
+            <a href="#"><img src="images/heart.svg" alt="favorites icon" class="favorite-icon"></a>
+          </div>
         </div>
       </div>
     </div>
@@ -258,6 +267,7 @@ function generateRecipeDOM(recipe) {
 
   var $recipeContainer = document.createElement('div');
   $recipeContainer.className = 'row col-90 recipe-container';
+  $recipeContainer.setAttribute('data-index', i);
   $recipeContainer.appendChild($imgContainer);
   $recipeContainer.appendChild($textContainer);
 
@@ -271,4 +281,32 @@ function generateRecipeDOM(recipe) {
 
   $recipeListContainer.appendChild($recipe);
   return $recipe;
+}
+
+function updatePageHeader(view) {
+  if (view === 'search') {
+    var $recipeCount = document.createElement('span');
+    $recipeCount.textContent = data.search.count;
+
+    var $headerText = document.createElement('h3');
+    $headerText.className = 'page-header';
+    $headerText.textContent = ' Recipes Found';
+    $headerText.prepend($recipeCount);
+
+    var $headerContainer = document.createElement('div');
+    $headerContainer.className = 'col-90 header-container';
+    $headerContainer.appendChild($headerText);
+
+    $recipeListContainer.appendChild($headerContainer);
+  }
+}
+
+function destroyChildren(el) {
+  while (el.firstChild) el.firstChild.remove();
+}
+
+function generateRecipeList(recipes) {
+  for (var i = 0; i < recipes.length; i++) {
+    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe, i));
+  }
 }

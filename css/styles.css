@@ -166,7 +166,7 @@ button:hover {
 
 main,
 .home {
-  height: 100vh;
+  height: 80vh;
 }
 
 .views {
@@ -290,6 +290,10 @@ h5 {
 .favorite-icon {
   width: 18px;
   margin-right: 10px;
+}
+
+.header-container {
+  margin: 0 auto;
 }
 
 @media only screen and (min-width: 768px) {
