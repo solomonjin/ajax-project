@@ -299,6 +299,7 @@ function generateRecipeDOM(recipe, i) {
   $noHeartIcon.setAttribute('src', 'images/heart-no.svg');
   $noHeartIcon.setAttribute('alt', 'unfavorite icon');
   $noHeartIcon.className = 'unfavorite-icon transparent';
+  if (!notInFavorites(recipe)) $noHeartIcon.className = 'unfavorite-icon';
 
   var $iconContainer = document.createElement('div');
   $iconContainer.className = 'icon-container';
@@ -473,11 +474,15 @@ function handleContentLoad(event) {
 function clickHeart(event) {
   event.target.classList.toggle('transparent');
   var $recipeContainer = event.target.closest('.recipe-container');
-  if (data.favorites.every(recipe => {
-    return recipe.uri !== data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe.uri;
-  })) { data.favorites.push(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe); } else {
+  if (notInFavorites(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe)) {
+    data.favorites.push(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe);
+  } else {
     data.favorites.splice(data.favorites.indexOf(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe), 1);
   }
+}
+
+function notInFavorites(r) {
+  return data.favorites.every(favRecipe => { return favRecipe.uri !== r.uri; });
 }
 
 function clickOnRecipe(event) {

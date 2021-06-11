@@ -311,7 +311,7 @@ h5 {
   position: absolute;
   left: 0;
   top: 0;
-  transition: opacity 0.25s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
 }
 
 .transparent {
