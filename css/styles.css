@@ -303,14 +303,18 @@ h5 {
 .icon-container {
   position: relative;
   width: 18px;
+  margin-right: 10px;
 }
 
+.daily-icon,
+.daily-minus-icon,
 .favorite-icon,
 .unfavorite-icon {
   width: 18px;
   margin-right: 10px;
 }
 
+.daily-icon,
 .unfavorite-icon {
   position: absolute;
   left: 0;
