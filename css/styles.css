@@ -98,7 +98,7 @@ h2 {
   left: 20px;
 }
 
-a > h2::after,
+h2 > a::after,
 .nav-list > li::after {
   display: block;
   content: '';
@@ -107,7 +107,7 @@ a > h2::after,
   transition: transform 250ms ease-in-out;
 }
 
-a > h2:hover::after,
+h2 > a:hover::after,
 .nav-list > li:hover::after {
   transform: scaleX(1);
 }
@@ -210,12 +210,12 @@ form label {
 }
 
 .toggle-button {
-  width: 140px;
+  width: 130px;
   background-color: #f0f4ef;
   border: 1px solid #69788c;
   height: 34px;
   color: #344966;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 5px;
   margin: 10px;
   transition: 0.5s;
@@ -243,12 +243,13 @@ form label {
 }
 
 .options {
-  max-height: 0;
-  transition: all 0.5s ease-in-out;
+  height: 0;
+  overflow-y: hidden;
+  transition: all 0.5s ease-in-out 0.2s;
 }
 
 .show-more-options {
-  max-height: 480px;
+  height: 480px;
 }
 
 .submit-search {
@@ -279,7 +280,11 @@ h5 {
   background-color: #e8ebe8;
   border-radius: 5px;
   padding: 5px;
-  margin: 0.5rem auto;
+  margin: 1rem auto 0;
+}
+
+.col-65:hover {
+  cursor: pointer;
 }
 
 .thumbnail {
@@ -313,6 +318,39 @@ h5 {
 img.searching {
   margin-right: 0;
   animation: searching 1s linear infinite;
+}
+
+.info-header {
+  text-align: center;
+  border-bottom: 2px solid #e275b7;
+}
+
+table {
+  width: 100%;
+  text-align: right;
+}
+
+table,
+.ingredient-list {
+  font-size: 14px;
+}
+
+.ingredient-list > li {
+  margin: 1rem 0;
+}
+
+.instructions-url {
+  text-align: center;
+}
+
+.more-info {
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+  height: 0;
+}
+
+.more-info.open {
+  height: auto;
 }
 
 @media only screen and (min-width: 768px) {
