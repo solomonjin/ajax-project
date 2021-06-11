@@ -177,15 +177,25 @@ function makeQuery(url) {
 function loadData(event) {
   data.search = this.response;
   checkRecipeCount();
-  data.searchRecipes = [];
-  for (var i = 0; i < this.response.hits.length; i++) {
-    data.searchRecipes.push(this.response.hits[i].recipe);
+  if (data.search.from !== 1) {
+    addSearchRecipes();
+    generateRecipeList(data.searchRecipes.slice(data.search.from - 1), $recipeListContainer);
+    resetShowMoreBtn();
+  } else {
+    data.searchRecipes = [];
+    addSearchRecipes();
+    destroyChildren($recipeListContainer);
+    updatePageHeader('recipe-list');
+    generateRecipeList(data.searchRecipes, $recipeListContainer);
+    switchView('recipe-list');
+    resetSearchButton();
   }
-  destroyChildren($recipeListContainer);
-  updatePageHeader('recipe-list');
-  generateRecipeList(data.searchRecipes, $recipeListContainer);
-  switchView('recipe-list');
-  resetSearchButton();
+}
+
+function addSearchRecipes() {
+  for (var i = 0; i < data.search.hits.length; i++) {
+    data.searchRecipes.push(data.search.hits[i].recipe);
+  }
 }
 
 function checkRecipeCount() {
@@ -499,6 +509,10 @@ function resetSearchButton() {
   $submitSearchBtn.textContent = 'Search';
 }
 
+function resetShowMoreBtn() {
+  $moreRecipesBtn.textContent = 'Show More';
+}
+
 function handleContentLoad(event) {
   if (data.view === 'recipe-list') {
     updatePageHeader('recipe-list');
@@ -573,4 +587,6 @@ function resetHeight(event) {
 
 function showMoreRecipes(event) {
   showSearching($moreRecipesBtn);
+  var moreRecipesURL = data.search._links.next.href;
+  makeQuery(moreRecipesURL);
 }
