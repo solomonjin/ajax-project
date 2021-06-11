@@ -385,10 +385,13 @@ table,
   margin: 1rem 0;
   border-radius: 5px;
   border: none;
-  background-color: #344966;
+  background-color: #69788c;
   color: #f0f4ef;
   padding: 0.5rem 1rem;
   font-size: 14px;
+  transition: width 0.5s ease-in-out;
+  width: 120px;
+  height: 46px;
 }
 
 @media only screen and (min-width: 768px) {

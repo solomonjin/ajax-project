@@ -13,6 +13,7 @@ var $searchButton = document.querySelector('.search-button');
 var $submitSearchBtn = document.querySelector('.submit-search');
 var $recipeListContainer = document.querySelector('.recipe-list');
 var $favoritesContainer = document.querySelector('.favorite-list');
+var $moreRecipesBtn = document.querySelector('.more-recipes');
 
 $openNavBtn.addEventListener('click', openNavMenu);
 $closeNavBtn.addEventListener('click', closeNavMenu);
@@ -26,6 +27,7 @@ $searchButton.addEventListener('click', showSearchForm);
 $submitSearchBtn.addEventListener('click', submitSearch);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
+$moreRecipesBtn.addEventListener('click', showMoreRecipes);
 
 function openNavMenu(event) {
   $toggleNavMenu.classList.add('show-menu');
@@ -174,6 +176,7 @@ function makeQuery(url) {
 
 function loadData(event) {
   data.search = this.response;
+  checkRecipeCount();
   data.searchRecipes = [];
   for (var i = 0; i < this.response.hits.length; i++) {
     data.searchRecipes.push(this.response.hits[i].recipe);
@@ -183,6 +186,10 @@ function loadData(event) {
   generateRecipeList(data.searchRecipes, $recipeListContainer);
   switchView('recipe-list');
   resetSearchButton();
+}
+
+function checkRecipeCount() {
+  if (data.search.to - data.search.from < 19) $moreRecipesBtn.classList.toggle('hidden');
 }
 
 function generateRecipeDOM(recipe) {
@@ -496,6 +503,7 @@ function handleContentLoad(event) {
   if (data.view === 'recipe-list') {
     updatePageHeader('recipe-list');
     generateRecipeList(data.searchRecipes, $recipeListContainer);
+    checkRecipeCount();
   } else if (data.view === 'favorites') {
     destroyChildren($favoritesContainer);
     updatePageHeader(data.view);
@@ -561,4 +569,8 @@ function expandElement(elem, toggleClass) {
 function resetHeight(event) {
   this.style.height = '';
   this.removeEventListener('transitionend', resetHeight);
+}
+
+function showMoreRecipes(event) {
+  showSearching($moreRecipesBtn);
 }
