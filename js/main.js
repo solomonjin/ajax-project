@@ -76,7 +76,7 @@ function clickNavLink(event) {
 }
 
 function submitSearch(event) {
-  showSearching();
+  showSearching($submitSearchBtn);
   var $toggleButtonList = document.querySelectorAll('.toggle-button');
   var searchObj = {
     keywords: getKeyWords($searchForm.keywords.value.toLowerCase()),
@@ -480,12 +480,12 @@ function generateRecipeList(recipes, $container) {
   }
 }
 
-function showSearching() {
+function showSearching($button) {
   var $loading = document.createElement('img');
   $loading.setAttribute('src', 'images/rotate-cw.svg');
   $loading.className = 'searching';
-  $submitSearchBtn.textContent = '';
-  $submitSearchBtn.appendChild($loading);
+  $button.textContent = '';
+  $button.appendChild($loading);
 }
 
 function resetSearchButton() {

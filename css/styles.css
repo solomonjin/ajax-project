@@ -381,6 +381,16 @@ table,
   transform: translate(-50%, -50%);
 }
 
+.more-recipes {
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: none;
+  background-color: #344966;
+  color: #f0f4ef;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+}
+
 @media only screen and (min-width: 768px) {
   .thumbnail {
     width: 180px;
