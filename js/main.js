@@ -194,7 +194,11 @@ function generateRecipeDOM(recipe) {
                 <h5 class="recipe-info"><span class="ingr-num">11</span> Ingredients</h5>
               </div>
             </div>
-            <div class="col justify-end"><a href="#"><img src="images/heart.svg" alt="favorites icon" class="favorite-icon"></a>
+            <div class="col justify-end">
+              <div class="icon-container">
+                <img src="images/heart.svg" alt="favorites icon" class="favorite-icon">
+                <img src="images/heart-no.svg" alt="unfavorite icon" class="favorite-icon">
+              </div>
             </div>
           </div>
           <div class="col row more-info">
@@ -291,13 +295,19 @@ function generateRecipeDOM(recipe) {
   $heartIcon.setAttribute('alt', 'favorites icon');
   $heartIcon.className = 'favorite-icon';
 
-  var $anchorWrap = document.createElement('a');
-  $anchorWrap.setAttribute('href', '#');
-  $anchorWrap.appendChild($heartIcon);
+  var $noHeartIcon = document.createElement('img');
+  $noHeartIcon.setAttribute('src', 'images/heart-no.svg');
+  $noHeartIcon.setAttribute('alt', 'unfavorite icon');
+  $noHeartIcon.className = 'unfavorite-icon transparent';
+
+  var $iconContainer = document.createElement('div');
+  $iconContainer.className = 'icon-container';
+  $iconContainer.appendChild($heartIcon);
+  $iconContainer.appendChild($noHeartIcon);
 
   var $heartIconCol = document.createElement('div');
   $heartIconCol.className = 'col justify-end';
-  $heartIconCol.appendChild($anchorWrap);
+  $heartIconCol.appendChild($iconContainer);
 
   var $textContainer = document.createElement('div');
   $textContainer.className = 'col-65 row';
@@ -460,7 +470,7 @@ function handleContentLoad(event) {
 }
 
 function clickHeart(event) {
-
+  event.target.classList.toggle('transparent');
 }
 
 function clickOnRecipe(event) {

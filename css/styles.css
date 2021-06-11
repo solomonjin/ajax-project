@@ -296,9 +296,26 @@ h5 {
   color: #e275b7;
 }
 
-.favorite-icon {
+.icon-container {
+  position: relative;
+  width: 18px;
+}
+
+.favorite-icon,
+.unfavorite-icon {
   width: 18px;
   margin-right: 10px;
+}
+
+.unfavorite-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.transparent {
+  opacity: 0;
 }
 
 .header-container {
@@ -388,3 +405,13 @@ table,
     width: 128px;
   }
 }
+
+
+/*
+<div class="col justify-end">
+  <div class="icon-container">
+    <img src="images/heart.svg" alt="favorites icon" class="favorite-icon">
+    <img src="images/heart-no.svg" alt="unfavorite icon" class="favorite-icon">
+  </div>
+</div>
+*/
