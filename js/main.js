@@ -173,7 +173,7 @@ function loadData(event) {
   resetSearchButton();
 }
 
-function generateRecipeDOM(recipe) {
+function generateRecipeDOM(recipe, i) {
   /*
   <div class="col-half">
     <div class="row">
@@ -194,7 +194,11 @@ function generateRecipeDOM(recipe) {
                 <h5 class="recipe-info"><span class="ingr-num">11</span> Ingredients</h5>
               </div>
             </div>
-            <div class="col justify-end"><a href="#"><img src="images/heart.svg" alt="favorites icon" class="favorite-icon"></a>
+            <div class="col justify-end">
+              <div class="icon-container">
+                <img src="images/heart.svg" alt="favorites icon" class="favorite-icon">
+                <img src="images/heart-no.svg" alt="unfavorite icon" class="favorite-icon">
+              </div>
             </div>
           </div>
           <div class="col row more-info">
@@ -291,13 +295,20 @@ function generateRecipeDOM(recipe) {
   $heartIcon.setAttribute('alt', 'favorites icon');
   $heartIcon.className = 'favorite-icon';
 
-  var $anchorWrap = document.createElement('a');
-  $anchorWrap.setAttribute('href', '#');
-  $anchorWrap.appendChild($heartIcon);
+  var $noHeartIcon = document.createElement('img');
+  $noHeartIcon.setAttribute('src', 'images/heart-no.svg');
+  $noHeartIcon.setAttribute('alt', 'unfavorite icon');
+  $noHeartIcon.className = 'unfavorite-icon transparent';
+  if (!notInFavorites(recipe)) $noHeartIcon.className = 'unfavorite-icon';
+
+  var $iconContainer = document.createElement('div');
+  $iconContainer.className = 'icon-container';
+  $iconContainer.appendChild($heartIcon);
+  $iconContainer.appendChild($noHeartIcon);
 
   var $heartIconCol = document.createElement('div');
   $heartIconCol.className = 'col justify-end';
-  $heartIconCol.appendChild($anchorWrap);
+  $heartIconCol.appendChild($iconContainer);
 
   var $textContainer = document.createElement('div');
   $textContainer.className = 'col-65 row';
@@ -324,6 +335,7 @@ function generateRecipeDOM(recipe) {
 
   var $recipeContainer = document.createElement('div');
   $recipeContainer.className = 'row col-90 recipe-container';
+  $recipeContainer.setAttribute('data-index', i);
   $recipeContainer.appendChild($innerRow);
 
   var $row = document.createElement('div');
@@ -435,7 +447,7 @@ function destroyChildren(el) {
 
 function generateRecipeList(recipes) {
   for (var i = 0; i < recipes.length; i++) {
-    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe));
+    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe, i));
   }
 }
 
@@ -459,8 +471,28 @@ function handleContentLoad(event) {
   switchView(data.view);
 }
 
+function clickHeart(event) {
+  event.target.classList.toggle('transparent');
+  var $recipeContainer = event.target.closest('.recipe-container');
+  if (notInFavorites(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe)) {
+    data.favorites.push(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe);
+  } else {
+    data.favorites.splice(data.favorites.indexOf(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe), 1);
+  }
+}
+
+function notInFavorites(r) {
+  return data.favorites.every(favRecipe => { return favRecipe.uri !== r.uri; });
+}
+
 function clickOnRecipe(event) {
   if (!event.target.closest('.col-65')) return;
+
+  if (event.target.tagName === 'IMG') {
+    event.preventDefault();
+    clickHeart(event);
+    return;
+  }
 
   var $recipeContainer = event.target.closest('.recipe-container');
   var moreInfoBox = $recipeContainer.querySelector('.more-info');
