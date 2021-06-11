@@ -173,7 +173,7 @@ function loadData(event) {
   resetSearchButton();
 }
 
-function generateRecipeDOM(recipe, i) {
+function generateRecipeDOM(recipe) {
   /*
   <div class="col-half">
     <div class="row">
@@ -324,7 +324,6 @@ function generateRecipeDOM(recipe, i) {
 
   var $recipeContainer = document.createElement('div');
   $recipeContainer.className = 'row col-90 recipe-container';
-  $recipeContainer.setAttribute('data-index', i);
   $recipeContainer.appendChild($innerRow);
 
   var $row = document.createElement('div');
@@ -436,7 +435,7 @@ function destroyChildren(el) {
 
 function generateRecipeList(recipes) {
   for (var i = 0; i < recipes.length; i++) {
-    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe, i));
+    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe));
   }
 }
 
