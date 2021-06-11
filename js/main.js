@@ -173,7 +173,7 @@ function loadData(event) {
   resetSearchButton();
 }
 
-function generateRecipeDOM(recipe) {
+function generateRecipeDOM(recipe, i) {
   /*
   <div class="col-half">
     <div class="row">
@@ -334,6 +334,7 @@ function generateRecipeDOM(recipe) {
 
   var $recipeContainer = document.createElement('div');
   $recipeContainer.className = 'row col-90 recipe-container';
+  $recipeContainer.setAttribute('data-index', i);
   $recipeContainer.appendChild($innerRow);
 
   var $row = document.createElement('div');
@@ -445,7 +446,7 @@ function destroyChildren(el) {
 
 function generateRecipeList(recipes) {
   for (var i = 0; i < recipes.length; i++) {
-    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe));
+    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe, i));
   }
 }
 
@@ -471,6 +472,12 @@ function handleContentLoad(event) {
 
 function clickHeart(event) {
   event.target.classList.toggle('transparent');
+  var $recipeContainer = event.target.closest('.recipe-container');
+  if (data.favorites.every(recipe => {
+    return recipe.uri !== data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe.uri;
+  })) { data.favorites.push(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe); } else {
+    data.favorites.splice(data.favorites.indexOf(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe), 1);
+  }
 }
 
 function clickOnRecipe(event) {
