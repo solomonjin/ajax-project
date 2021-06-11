@@ -28,6 +28,10 @@
   text-align: right;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .nav-bar-desktop,
 .nav-bar {
   background-color: #344966;
@@ -368,6 +372,13 @@ table,
 
 .more-info.open {
   height: auto;
+}
+
+.no-recipes {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media only screen and (min-width: 768px) {

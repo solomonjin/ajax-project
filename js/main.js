@@ -12,6 +12,7 @@ var $navBar = document.querySelector('.nav-bar-desktop');
 var $searchButton = document.querySelector('.search-button');
 var $submitSearchBtn = document.querySelector('.submit-search');
 var $recipeListContainer = document.querySelector('.recipe-list');
+var $favoritesContainer = document.querySelector('.favorite-list');
 
 $openNavBtn.addEventListener('click', openNavMenu);
 $closeNavBtn.addEventListener('click', closeNavMenu);
@@ -19,8 +20,8 @@ $searchForm.addEventListener('click', toggleButton);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
 $searchIcon.addEventListener('click', showSearchForm);
 $searchIconDT.addEventListener('click', showSearchForm);
-$navList.addEventListener('click', clickNavList);
-$navBar.addEventListener('click', clickNavList);
+$navList.addEventListener('click', clickNavLink);
+$navBar.addEventListener('click', clickNavLink);
 $searchButton.addEventListener('click', showSearchForm);
 $submitSearchBtn.addEventListener('click', submitSearch);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
@@ -62,10 +63,16 @@ function switchView(view) {
   closeNavMenu();
 }
 
-function clickNavList(event) {
+function clickNavLink(event) {
   if (event.target.tagName !== 'A') return;
 
-  switchView(event.target.getAttribute('data-view'));
+  var view = event.target.getAttribute('data-view');
+  if (view === 'favorites') {
+    destroyChildren($favoritesContainer);
+    updatePageHeader(view);
+    generateRecipeList(data.favorites, $favoritesContainer);
+  }
+  switchView(view);
 }
 
 function submitSearch(event) {
@@ -167,13 +174,18 @@ function makeQuery(url) {
 
 function loadData(event) {
   data.search = this.response;
+  data.searchRecipes = [];
+  for (var i = 0; i < this.response.hits.length; i++) {
+    data.searchRecipes.push(this.response.hits[i].recipe);
+  }
+  destroyChildren($recipeListContainer);
   updatePageHeader('recipe-list');
-  generateRecipeList(data.search.hits);
+  generateRecipeList(data.searchRecipes, $recipeListContainer);
   switchView('recipe-list');
   resetSearchButton();
 }
 
-function generateRecipeDOM(recipe, i) {
+function generateRecipeDOM(recipe) {
   /*
   <div class="col-half">
     <div class="row">
@@ -299,7 +311,7 @@ function generateRecipeDOM(recipe, i) {
   $noHeartIcon.setAttribute('src', 'images/heart-no.svg');
   $noHeartIcon.setAttribute('alt', 'unfavorite icon');
   $noHeartIcon.className = 'unfavorite-icon transparent';
-  if (!notInFavorites(recipe)) $noHeartIcon.className = 'unfavorite-icon';
+  if (!notInFavorites(recipe.uri)) $noHeartIcon.className = 'unfavorite-icon';
 
   var $iconContainer = document.createElement('div');
   $iconContainer.className = 'icon-container';
@@ -335,7 +347,7 @@ function generateRecipeDOM(recipe, i) {
 
   var $recipeContainer = document.createElement('div');
   $recipeContainer.className = 'row col-90 recipe-container';
-  $recipeContainer.setAttribute('data-index', i);
+  $recipeContainer.setAttribute('data-uri', recipe.uri);
   $recipeContainer.appendChild($innerRow);
 
   var $row = document.createElement('div');
@@ -438,6 +450,16 @@ function updatePageHeader(view) {
     $headerContainer.appendChild($headerText);
 
     $recipeListContainer.appendChild($headerContainer);
+  } else if (view === 'favorites') {
+    $headerText = document.createElement('h3');
+    $headerText.className = 'page-header';
+    $headerText.textContent = 'Favorite Recipes';
+
+    $headerContainer = document.createElement('div');
+    $headerContainer.className = 'col-90 header-container';
+    $headerContainer.appendChild($headerText);
+
+    $favoritesContainer.appendChild($headerContainer);
   }
 }
 
@@ -445,9 +467,16 @@ function destroyChildren(el) {
   while (el.firstChild) el.firstChild.remove();
 }
 
-function generateRecipeList(recipes) {
-  for (var i = 0; i < recipes.length; i++) {
-    $recipeListContainer.appendChild(generateRecipeDOM(recipes[i].recipe, i));
+function generateRecipeList(recipes, $container) {
+  if (recipes.length === 0) {
+    var $noRecipes = document.createElement('h3');
+    $noRecipes.textContent = 'No recipes found';
+    $noRecipes.className = 'no-recipes text-center';
+    $container.appendChild($noRecipes);
+  } else {
+    for (var i = 0; i < recipes.length; i++) {
+      $container.appendChild(generateRecipeDOM(recipes[i]));
+    }
   }
 }
 
@@ -466,7 +495,11 @@ function resetSearchButton() {
 function handleContentLoad(event) {
   if (data.view === 'recipe-list') {
     updatePageHeader('recipe-list');
-    generateRecipeList(data.search.hits);
+    generateRecipeList(data.searchRecipes, $recipeListContainer);
+  } else if (data.view === 'favorites') {
+    destroyChildren($favoritesContainer);
+    updatePageHeader(data.view);
+    generateRecipeList(data.favorites, $favoritesContainer);
   }
   switchView(data.view);
 }
@@ -474,15 +507,21 @@ function handleContentLoad(event) {
 function clickHeart(event) {
   event.target.classList.toggle('transparent');
   var $recipeContainer = event.target.closest('.recipe-container');
-  if (notInFavorites(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe)) {
-    data.favorites.push(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe);
+  var recipeURI = $recipeContainer.getAttribute('data-uri');
+  if (notInFavorites(recipeURI)) {
+    data.favorites.push(data.searchRecipes[findRecipeIndex(data.searchRecipes, recipeURI)]);
   } else {
-    data.favorites.splice(data.favorites.indexOf(data.search.hits[parseInt($recipeContainer.getAttribute('data-index'))].recipe), 1);
+    var index = findRecipeIndex(data.favorites, recipeURI);
+    data.favorites.splice(index, 1);
   }
 }
 
-function notInFavorites(r) {
-  return data.favorites.every(favRecipe => { return favRecipe.uri !== r.uri; });
+function notInFavorites(uri) {
+  return data.favorites.every(favRecipe => { return favRecipe.uri !== uri; });
+}
+
+function findRecipeIndex(recipeList, uri) {
+  return recipeList.findIndex(recipe => recipe.uri === uri);
 }
 
 function clickOnRecipe(event) {

@@ -2,6 +2,7 @@
 
 var data = {
   search: null,
+  searchRecipes: [],
   view: null,
   favorites: []
 };
