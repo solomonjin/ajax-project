@@ -19,8 +19,8 @@ $searchForm.addEventListener('click', toggleButton);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
 $searchIcon.addEventListener('click', showSearchForm);
 $searchIconDT.addEventListener('click', showSearchForm);
-$navList.addEventListener('click', clickNavList);
-$navBar.addEventListener('click', clickNavList);
+$navList.addEventListener('click', clickNavLink);
+$navBar.addEventListener('click', clickNavLink);
 $searchButton.addEventListener('click', showSearchForm);
 $submitSearchBtn.addEventListener('click', submitSearch);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
@@ -62,7 +62,7 @@ function switchView(view) {
   closeNavMenu();
 }
 
-function clickNavList(event) {
+function clickNavLink(event) {
   if (event.target.tagName !== 'A') return;
 
   switchView(event.target.getAttribute('data-view'));
@@ -434,6 +434,17 @@ function updatePageHeader(view) {
     $headerText.prepend($recipeCount);
 
     var $headerContainer = document.createElement('div');
+    $headerContainer.className = 'col-90 header-container';
+    $headerContainer.appendChild($headerText);
+
+    $recipeListContainer.appendChild($headerContainer);
+  } else if (view === 'favorites') {
+    $headerText = document.createElement('h3');
+    $headerText.className = 'page-header';
+    $headerText.textContent = 'Favorite Recipes';
+    $headerText.prepend($recipeCount);
+
+    $headerContainer = document.createElement('div');
     $headerContainer.className = 'col-90 header-container';
     $headerContainer.appendChild($headerText);
 
