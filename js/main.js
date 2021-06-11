@@ -12,6 +12,7 @@ var $navBar = document.querySelector('.nav-bar-desktop');
 var $searchButton = document.querySelector('.search-button');
 var $submitSearchBtn = document.querySelector('.submit-search');
 var $recipeListContainer = document.querySelector('.recipe-list');
+var $favoritesContainer = document.querySelector('.favorite-list');
 
 $openNavBtn.addEventListener('click', openNavMenu);
 $closeNavBtn.addEventListener('click', closeNavMenu);
@@ -67,16 +68,11 @@ function clickNavLink(event) {
 
   var view = event.target.getAttribute('data-view');
   if (view === 'favorites') {
-    showFavorites(view);
-  } else { switchView(view); }
-}
-
-function showFavorites(view) {
-  destroyChildren($recipeListContainer);
-  updatePageHeader(view);
-  generateRecipeList(data.favorites);
-  switchView('recipe-list');
-  data.view = 'favorites';
+    destroyChildren($favoritesContainer);
+    updatePageHeader(view);
+    generateRecipeList(data.favorites, $favoritesContainer);
+  }
+  switchView(view);
 }
 
 function submitSearch(event) {
@@ -178,11 +174,13 @@ function makeQuery(url) {
 
 function loadData(event) {
   data.search = this.response;
+  data.searchRecipes = [];
   for (var i = 0; i < this.response.hits.length; i++) {
     data.searchRecipes.push(this.response.hits[i].recipe);
   }
+  destroyChildren($recipeListContainer);
   updatePageHeader('recipe-list');
-  generateRecipeList(data.searchRecipes);
+  generateRecipeList(data.searchRecipes, $recipeListContainer);
   switchView('recipe-list');
   resetSearchButton();
 }
@@ -461,7 +459,7 @@ function updatePageHeader(view) {
     $headerContainer.className = 'col-90 header-container';
     $headerContainer.appendChild($headerText);
 
-    $recipeListContainer.appendChild($headerContainer);
+    $favoritesContainer.appendChild($headerContainer);
   }
 }
 
@@ -469,15 +467,15 @@ function destroyChildren(el) {
   while (el.firstChild) el.firstChild.remove();
 }
 
-function generateRecipeList(recipes) {
+function generateRecipeList(recipes, $container) {
   if (recipes.length === 0) {
     var $noRecipes = document.createElement('h3');
     $noRecipes.textContent = 'No recipes found';
     $noRecipes.className = 'no-recipes text-center';
-    $recipeListContainer.appendChild($noRecipes);
+    $container.appendChild($noRecipes);
   } else {
     for (var i = 0; i < recipes.length; i++) {
-      $recipeListContainer.appendChild(generateRecipeDOM(recipes[i]));
+      $container.appendChild(generateRecipeDOM(recipes[i]));
     }
   }
 }
@@ -497,11 +495,13 @@ function resetSearchButton() {
 function handleContentLoad(event) {
   if (data.view === 'recipe-list') {
     updatePageHeader('recipe-list');
-    generateRecipeList(data.searchRecipes);
-    switchView(data.view);
+    generateRecipeList(data.searchRecipes, $recipeListContainer);
   } else if (data.view === 'favorites') {
-    showFavorites(data.view);
+    destroyChildren($favoritesContainer);
+    updatePageHeader(data.view);
+    generateRecipeList(data.favorites, $favoritesContainer);
   }
+  switchView(data.view);
 }
 
 function clickHeart(event) {
