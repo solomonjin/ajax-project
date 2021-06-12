@@ -456,10 +456,10 @@ function generateTableRowDOM(recipe, key) {
   $label.textContent = recipe.totalDaily[key].label;
 
   var $amount = document.createElement('td');
-  $amount.textContent = Math.round(recipe.totalNutrients[key].quantity) + recipe.totalNutrients[key].unit;
+  $amount.textContent = Math.round(recipe.totalNutrients[key].quantity / recipe.yield) + recipe.totalNutrients[key].unit;
 
   var $percent = document.createElement('td');
-  $percent.textContent = Math.round(recipe.totalDaily[key].quantity) + '%';
+  $percent.textContent = Math.round(recipe.totalDaily[key].quantity / recipe.yield) + '%';
 
   var $row = document.createElement('tr');
   $row.appendChild($label);
