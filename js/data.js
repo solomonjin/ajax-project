@@ -4,7 +4,8 @@ var data = {
   search: null,
   searchRecipes: [],
   view: null,
-  favorites: []
+  favorites: [],
+  dailyRecipes: []
 };
 
 var previousData = localStorage.getItem('user-recipe-data');

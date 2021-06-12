@@ -319,6 +319,22 @@ function generateRecipeDOM(recipe) {
   $calIngrCol.appendChild($calorieCol);
   $calIngrCol.appendChild($ingrCol);
 
+  var $dayPlusIcon = document.createElement('img');
+  $dayPlusIcon.setAttribute('src', 'images/calendar-plus.svg');
+  $dayPlusIcon.setAttribute('alt', 'day plus icon');
+  $dayPlusIcon.className = 'daily-icon';
+  if (!notInData(recipe.uri, data.dailyRecipes)) $dayPlusIcon.className = 'daily-icon transparent';
+
+  var $dayMinusIcon = document.createElement('img');
+  $dayMinusIcon.setAttribute('src', 'images/calendar-minus.svg');
+  $dayMinusIcon.setAttribute('alt', 'day minus icon');
+  $dayMinusIcon.className = 'daily-minus-icon';
+
+  var $dayIconContainer = document.createElement('div');
+  $dayIconContainer.className = 'icon-container';
+  $dayIconContainer.appendChild($dayPlusIcon);
+  $dayIconContainer.appendChild($dayMinusIcon);
+
   var $heartIcon = document.createElement('img');
   $heartIcon.setAttribute('src', 'images/heart.svg');
   $heartIcon.setAttribute('alt', 'favorites icon');
@@ -328,22 +344,23 @@ function generateRecipeDOM(recipe) {
   $noHeartIcon.setAttribute('src', 'images/heart-no.svg');
   $noHeartIcon.setAttribute('alt', 'unfavorite icon');
   $noHeartIcon.className = 'unfavorite-icon transparent';
-  if (!notInFavorites(recipe.uri)) $noHeartIcon.className = 'unfavorite-icon';
+  if (!notInData(recipe.uri, data.favorites)) $noHeartIcon.className = 'unfavorite-icon';
 
-  var $iconContainer = document.createElement('div');
-  $iconContainer.className = 'icon-container';
-  $iconContainer.appendChild($heartIcon);
-  $iconContainer.appendChild($noHeartIcon);
+  var $heartIconContainer = document.createElement('div');
+  $heartIconContainer.className = 'icon-container';
+  $heartIconContainer.appendChild($heartIcon);
+  $heartIconContainer.appendChild($noHeartIcon);
 
-  var $heartIconCol = document.createElement('div');
-  $heartIconCol.className = 'col justify-end';
-  $heartIconCol.appendChild($iconContainer);
+  var $iconCol = document.createElement('div');
+  $iconCol.className = 'col justify-end icon-col';
+  $iconCol.appendChild($dayIconContainer);
+  $iconCol.appendChild($heartIconContainer);
 
   var $textContainer = document.createElement('div');
   $textContainer.className = 'col-65 row';
   $textContainer.appendChild($recipeNameCol);
   $textContainer.appendChild($calIngrCol);
-  $textContainer.appendChild($heartIconCol);
+  $textContainer.appendChild($iconCol);
 
   var $thumbNail = document.createElement('img');
   $thumbNail.setAttribute('src', recipe.image);
@@ -530,7 +547,7 @@ function clickHeart(event) {
   event.target.classList.toggle('transparent');
   var $recipeContainer = event.target.closest('.recipe-container');
   var recipeURI = $recipeContainer.getAttribute('data-uri');
-  if (notInFavorites(recipeURI)) {
+  if (notInData(recipeURI, data.favorites)) {
     data.favorites.push(data.searchRecipes[findRecipeIndex(data.searchRecipes, recipeURI)]);
   } else {
     var index = findRecipeIndex(data.favorites, recipeURI);
@@ -538,8 +555,20 @@ function clickHeart(event) {
   }
 }
 
-function notInFavorites(uri) {
-  return data.favorites.every(favRecipe => { return favRecipe.uri !== uri; });
+function clickDaily(event) {
+  event.target.classList.toggle('transparent');
+  var $recipeContainer = event.target.closest('.recipe-container');
+  var recipeURI = $recipeContainer.getAttribute('data-uri');
+  if (notInData(recipeURI, data.dailyRecipes)) {
+    data.dailyRecipes.push(data.searchRecipes[findRecipeIndex(data.searchRecipes, recipeURI)]);
+  } else {
+    var index = findRecipeIndex(data.dailyRecipes, recipeURI);
+    data.dailyRecipes.splice(index, 1);
+  }
+}
+
+function notInData(uri, list) {
+  return list.every(favRecipe => { return favRecipe.uri !== uri; });
 }
 
 function findRecipeIndex(recipeList, uri) {
@@ -549,9 +578,14 @@ function findRecipeIndex(recipeList, uri) {
 function clickOnRecipe(event) {
   if (!event.target.closest('.col-65')) return;
 
-  if (event.target.tagName === 'IMG') {
+  if (event.target.tagName === 'IMG' && event.target.classList.contains('unfavorite-icon')) {
     event.preventDefault();
     clickHeart(event);
+    return;
+  }
+  if (event.target.tagName === 'IMG' && event.target.classList.contains('daily-icon')) {
+    event.preventDefault();
+    clickDaily(event);
     return;
   }
 
