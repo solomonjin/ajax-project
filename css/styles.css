@@ -433,13 +433,3 @@ table,
     width: 128px;
   }
 }
-
-
-/*
-<div class="col justify-end">
-  <div class="icon-container">
-    <img src="images/heart.svg" alt="favorites icon" class="favorite-icon">
-    <img src="images/heart-no.svg" alt="unfavorite icon" class="favorite-icon">
-  </div>
-</div>
-*/
