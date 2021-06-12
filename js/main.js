@@ -323,6 +323,7 @@ function generateRecipeDOM(recipe) {
   $dayPlusIcon.setAttribute('src', 'images/calendar-plus.svg');
   $dayPlusIcon.setAttribute('alt', 'day plus icon');
   $dayPlusIcon.className = 'daily-icon';
+  if (!notInData(recipe.uri, data.dailyRecipes)) $dayPlusIcon.className = 'daily-icon transparent';
 
   var $dayMinusIcon = document.createElement('img');
   $dayMinusIcon.setAttribute('src', 'images/calendar-minus.svg');
@@ -343,7 +344,7 @@ function generateRecipeDOM(recipe) {
   $noHeartIcon.setAttribute('src', 'images/heart-no.svg');
   $noHeartIcon.setAttribute('alt', 'unfavorite icon');
   $noHeartIcon.className = 'unfavorite-icon transparent';
-  if (!notInFavorites(recipe.uri)) $noHeartIcon.className = 'unfavorite-icon';
+  if (!notInData(recipe.uri, data.favorites)) $noHeartIcon.className = 'unfavorite-icon';
 
   var $heartIconContainer = document.createElement('div');
   $heartIconContainer.className = 'icon-container';
@@ -546,7 +547,7 @@ function clickHeart(event) {
   event.target.classList.toggle('transparent');
   var $recipeContainer = event.target.closest('.recipe-container');
   var recipeURI = $recipeContainer.getAttribute('data-uri');
-  if (notInFavorites(recipeURI)) {
+  if (notInData(recipeURI, data.favorites)) {
     data.favorites.push(data.searchRecipes[findRecipeIndex(data.searchRecipes, recipeURI)]);
   } else {
     var index = findRecipeIndex(data.favorites, recipeURI);
@@ -554,8 +555,20 @@ function clickHeart(event) {
   }
 }
 
-function notInFavorites(uri) {
-  return data.favorites.every(favRecipe => { return favRecipe.uri !== uri; });
+function clickDaily(event) {
+  event.target.classList.toggle('transparent');
+  var $recipeContainer = event.target.closest('.recipe-container');
+  var recipeURI = $recipeContainer.getAttribute('data-uri');
+  if (notInData(recipeURI, data.dailyRecipes)) {
+    data.dailyRecipes.push(data.searchRecipes[findRecipeIndex(data.searchRecipes, recipeURI)]);
+  } else {
+    var index = findRecipeIndex(data.dailyRecipes, recipeURI);
+    data.dailyRecipes.splice(index, 1);
+  }
+}
+
+function notInData(uri, list) {
+  return list.every(favRecipe => { return favRecipe.uri !== uri; });
 }
 
 function findRecipeIndex(recipeList, uri) {
@@ -565,9 +578,14 @@ function findRecipeIndex(recipeList, uri) {
 function clickOnRecipe(event) {
   if (!event.target.closest('.col-65')) return;
 
-  if (event.target.tagName === 'IMG') {
+  if (event.target.tagName === 'IMG' && event.target.classList.contains('unfavorite-icon')) {
     event.preventDefault();
     clickHeart(event);
+    return;
+  }
+  if (event.target.tagName === 'IMG' && event.target.classList.contains('daily-icon')) {
+    event.preventDefault();
+    clickDaily(event);
     return;
   }
 
