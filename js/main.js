@@ -645,3 +645,21 @@ function showMoreRecipes(event) {
   var moreRecipesURL = data.search._links.next.href;
   makeQuery(moreRecipesURL);
 }
+
+function getSumDaily() {
+  var allNutrients = [];
+  for (var key in data.dailyRecipes[0].totalDaily) {
+    var sumNutrients = {
+      label: data.dailyRecipes[0].totalNutrients[key].label,
+      quantity: 0,
+      unit: data.dailyRecipes[0].totalNutrients[key].unit,
+      percent: 0
+    };
+    for (var i = 0; i < data.dailyRecipes.length; i++) {
+      sumNutrients.quantity += (data.dailyRecipes[i].totalNutrients[key].quantity / data.dailyRecipes[i].yield);
+      sumNutrients.percent += (data.dailyRecipes[i].totalDaily[key].quantity / data.dailyRecipes[i].yield);
+    }
+    allNutrients.push(sumNutrients);
+  }
+  return allNutrients;
+}
