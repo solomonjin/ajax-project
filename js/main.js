@@ -500,6 +500,16 @@ function updatePageHeader(view) {
     $headerContainer.appendChild($headerText);
 
     $favoritesContainer.appendChild($headerContainer);
+  } else if (view === 'daily') {
+    $headerText = document.createElement('h3');
+    $headerText.className = 'page-header';
+    $headerText.textContent = 'Daily Recipes';
+
+    $headerContainer = document.createElement('div');
+    $headerContainer.className = 'col-90 header-container';
+    $headerContainer.appendChild($headerText);
+
+    $dailyContainer.appendChild($headerContainer);
   }
 }
 
