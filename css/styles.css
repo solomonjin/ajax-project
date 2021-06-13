@@ -398,6 +398,21 @@ table,
   height: 46px;
 }
 
+.daily-list table {
+  text-align: center;
+  background-color: #e8ebe8;
+  border-radius: 5px;
+}
+
+.daily-row:hover {
+  cursor: pointer;
+}
+
+.recipe-nutrition-info {
+  background-color: #344966;
+  color: #f0f4ef;
+}
+
 @media only screen and (min-width: 768px) {
   .thumbnail {
     width: 180px;
