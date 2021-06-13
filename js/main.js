@@ -13,6 +13,7 @@ var $searchButton = document.querySelector('.search-button');
 var $submitSearchBtn = document.querySelector('.submit-search');
 var $recipeListContainer = document.querySelector('.recipe-list');
 var $favoritesContainer = document.querySelector('.favorite-list');
+var $dailyContainer = document.querySelector('.daily-list');
 var $moreRecipesBtn = document.querySelector('.more-recipes');
 
 $openNavBtn.addEventListener('click', openNavMenu);
@@ -73,6 +74,11 @@ function clickNavLink(event) {
     destroyChildren($favoritesContainer);
     updatePageHeader(view);
     generateRecipeList(data.favorites, $favoritesContainer);
+  } else if (view === 'daily') {
+    destroyChildren($dailyContainer);
+    updatePageHeader(view);
+    // Create Table DOM function here
+    generateRecipeList(data.dailyRecipes, $dailyContainer);
   }
   switchView(view);
 }
@@ -539,6 +545,11 @@ function handleContentLoad(event) {
     destroyChildren($favoritesContainer);
     updatePageHeader(data.view);
     generateRecipeList(data.favorites, $favoritesContainer);
+  } else if (data.view === 'daily') {
+    destroyChildren($dailyContainer);
+    updatePageHeader(data.view);
+    // Table Generating DOM here
+    generateRecipeList(data.dailyRecipes, $dailyContainer);
   }
   switchView(data.view);
 }
