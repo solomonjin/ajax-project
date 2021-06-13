@@ -408,6 +408,11 @@ table,
   cursor: pointer;
 }
 
+.recipe-nutrition-info {
+  background-color: #344966;
+  color: #f0f4ef;
+}
+
 @media only screen and (min-width: 768px) {
   .thumbnail {
     width: 180px;

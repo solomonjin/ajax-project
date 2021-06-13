@@ -29,6 +29,7 @@ $submitSearchBtn.addEventListener('click', submitSearch);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
+$dailyContainer.addEventListener('click', clickOnNutrition);
 
 function openNavMenu(event) {
   $toggleNavMenu.classList.add('show-menu');
@@ -532,14 +533,11 @@ function generateDailyRowDOM(nutrient) {
 }
 
 function generateDailyMoreInfoDOM(key) {
-  var $innerTable = document.createElement('table');
-  for (var i = 0; i < data.dailyRecipes.length; i++) {
-    $innerTable.appendChild(generateMoreInfoRowDOM(key, data.dailyRecipes[i]));
-  }
-
   var $tableContainer = document.createElement('div');
-  $tableContainer.className = 'more-info';
-  $tableContainer.appendChild($innerTable);
+  $tableContainer.className = 'more-info recipe-nutrition-info';
+  for (var i = 0; i < data.dailyRecipes.length; i++) {
+    $tableContainer.appendChild(generateMoreInfoRowDOM(key, data.dailyRecipes[i]));
+  }
 
   var $td = document.createElement('td');
   $td.setAttribute('colspan', '3');
@@ -552,16 +550,20 @@ function generateDailyMoreInfoDOM(key) {
 }
 
 function generateMoreInfoRowDOM(key, recipe) {
-  var $label = document.createElement('td');
+  var $label = document.createElement('div');
+  $label.className = 'column-half';
   $label.textContent = recipe.label;
 
-  var $amount = document.createElement('td');
+  var $amount = document.createElement('div');
+  $amount.className = 'col-20';
   $amount.textContent = Math.round(recipe.totalNutrients[key].quantity / recipe.yield) + recipe.totalNutrients[key].unit;
 
-  var $percent = document.createElement('td');
+  var $percent = document.createElement('div');
+  $percent.className = 'col-30';
   $percent.textContent = Math.round(recipe.totalDaily[key].quantity / recipe.yield) + '%';
 
-  var $row = document.createElement('tr');
+  var $row = document.createElement('div');
+  $row.className = 'row';
   $row.appendChild($label);
   $row.appendChild($amount);
   $row.appendChild($percent);
@@ -707,6 +709,15 @@ function clickOnRecipe(event) {
   var $recipeContainer = event.target.closest('.recipe-container');
   var moreInfoBox = $recipeContainer.querySelector('.more-info');
   expandElement(moreInfoBox, 'open');
+}
+
+function clickOnNutrition(event) {
+  if (!event.target.closest('.daily-row')) return;
+
+  var $nutritionRow = event.target.closest('.daily-row');
+  var $moreInfoRow = $nutritionRow.nextElementSibling;
+  var $moreInfoContainer = $moreInfoRow.querySelector('.more-info');
+  expandElement($moreInfoContainer, 'open');
 }
 
 function expandElement(elem, toggleClass) {
