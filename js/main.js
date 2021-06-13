@@ -77,7 +77,7 @@ function clickNavLink(event) {
   } else if (view === 'daily') {
     destroyChildren($dailyContainer);
     updatePageHeader(view);
-    // Create Table DOM function here
+    generateDailyTableDOM(data.dailyRecipes);
     generateRecipeList(data.dailyRecipes, $dailyContainer);
   }
   switchView(view);
@@ -475,6 +475,60 @@ function generateTableRowDOM(recipe, key) {
   return $row;
 }
 
+function generateDailyTableDOM(recipes) {
+  var $table = document.createElement('table');
+  if (recipes.length === 0) return $table;
+
+  var $tHeader = generateDailyTableHeaderDOM();
+  var $tBody = document.createElement('tbody');
+  var sumNutrients = getSumNutrients(recipes);
+  for (var i = 0; i < sumNutrients.length; i++) {
+    $tBody.appendChild(generateDailyRowDOM(sumNutrients[i]));
+  }
+  $table.appendChild($tHeader);
+  $table.appendChild($tBody);
+  $dailyContainer.appendChild($table);
+}
+
+function generateDailyTableHeaderDOM() {
+  var $label = document.createElement('th');
+  $label.textContent = 'Nutrition';
+
+  var $amount = document.createElement('th');
+  $amount.textContent = 'Amount';
+
+  var $percent = document.createElement('th');
+  $percent.textContent = 'Percent Daily';
+
+  var $row = document.createElement('tr');
+  $row.appendChild($label);
+  $row.appendChild($amount);
+  $row.appendChild($percent);
+
+  var $thead = document.createElement('thead');
+  $thead.appendChild($row);
+
+  return $thead;
+}
+
+function generateDailyRowDOM(nutrient) {
+  var $label = document.createElement('td');
+  $label.textContent = nutrient.label;
+
+  var $amount = document.createElement('td');
+  $amount.textContent = Math.round(nutrient.quantity) + nutrient.unit;
+
+  var $percent = document.createElement('td');
+  $percent.textContent = Math.round(nutrient.percent) + '%';
+
+  var $row = document.createElement('tr');
+  $row.appendChild($label);
+  $row.appendChild($amount);
+  $row.appendChild($percent);
+
+  return $row;
+}
+
 function updatePageHeader(view) {
   if (view === 'recipe-list') {
     var $recipeCount = document.createElement('span');
@@ -558,7 +612,7 @@ function handleContentLoad(event) {
   } else if (data.view === 'daily') {
     destroyChildren($dailyContainer);
     updatePageHeader(data.view);
-    // Table Generating DOM here
+    generateDailyTableDOM(data.dailyRecipes);
     generateRecipeList(data.dailyRecipes, $dailyContainer);
   }
   switchView(data.view);
@@ -646,18 +700,18 @@ function showMoreRecipes(event) {
   makeQuery(moreRecipesURL);
 }
 
-function getSumDaily() {
+function getSumNutrients(recipeList) {
   var allNutrients = [];
-  for (var key in data.dailyRecipes[0].totalDaily) {
+  for (var key in recipeList[0].totalDaily) {
     var sumNutrients = {
-      label: data.dailyRecipes[0].totalNutrients[key].label,
+      label: recipeList[0].totalNutrients[key].label,
       quantity: 0,
-      unit: data.dailyRecipes[0].totalNutrients[key].unit,
+      unit: recipeList[0].totalNutrients[key].unit,
       percent: 0
     };
-    for (var i = 0; i < data.dailyRecipes.length; i++) {
-      sumNutrients.quantity += (data.dailyRecipes[i].totalNutrients[key].quantity / data.dailyRecipes[i].yield);
-      sumNutrients.percent += (data.dailyRecipes[i].totalDaily[key].quantity / data.dailyRecipes[i].yield);
+    for (var i = 0; i < recipeList.length; i++) {
+      sumNutrients.quantity += (recipeList[i].totalNutrients[key].quantity / recipeList[i].yield);
+      sumNutrients.percent += (recipeList[i].totalDaily[key].quantity / recipeList[i].yield);
     }
     allNutrients.push(sumNutrients);
   }
