@@ -484,6 +484,7 @@ function generateDailyTableDOM(recipes) {
   var sumNutrients = getSumNutrients(recipes);
   for (var i = 0; i < sumNutrients.length; i++) {
     $tBody.appendChild(generateDailyRowDOM(sumNutrients[i]));
+    $tBody.appendChild(generateDailyMoreInfoDOM(sumNutrients[i].key));
   }
   $table.appendChild($tHeader);
   $table.appendChild($tBody);
@@ -520,6 +521,45 @@ function generateDailyRowDOM(nutrient) {
 
   var $percent = document.createElement('td');
   $percent.textContent = Math.round(nutrient.percent) + '%';
+
+  var $row = document.createElement('tr');
+  $row.className = 'daily-row';
+  $row.appendChild($label);
+  $row.appendChild($amount);
+  $row.appendChild($percent);
+
+  return $row;
+}
+
+function generateDailyMoreInfoDOM(key) {
+  var $innerTable = document.createElement('table');
+  for (var i = 0; i < data.dailyRecipes.length; i++) {
+    $innerTable.appendChild(generateMoreInfoRowDOM(key, data.dailyRecipes[i]));
+  }
+
+  var $tableContainer = document.createElement('div');
+  $tableContainer.className = 'more-info';
+  $tableContainer.appendChild($innerTable);
+
+  var $td = document.createElement('td');
+  $td.setAttribute('colspan', '3');
+  $td.appendChild($tableContainer);
+
+  var $row = document.createElement('tr');
+  $row.appendChild($td);
+
+  return $row;
+}
+
+function generateMoreInfoRowDOM(key, recipe) {
+  var $label = document.createElement('td');
+  $label.textContent = recipe.label;
+
+  var $amount = document.createElement('td');
+  $amount.textContent = Math.round(recipe.totalNutrients[key].quantity / recipe.yield) + recipe.totalNutrients[key].unit;
+
+  var $percent = document.createElement('td');
+  $percent.textContent = Math.round(recipe.totalDaily[key].quantity / recipe.yield) + '%';
 
   var $row = document.createElement('tr');
   $row.appendChild($label);
@@ -707,7 +747,8 @@ function getSumNutrients(recipeList) {
       label: recipeList[0].totalNutrients[key].label,
       quantity: 0,
       unit: recipeList[0].totalNutrients[key].unit,
-      percent: 0
+      percent: 0,
+      key: key
     };
     for (var i = 0; i < recipeList.length; i++) {
       sumNutrients.quantity += (recipeList[i].totalNutrients[key].quantity / recipeList[i].yield);
