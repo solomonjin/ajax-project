@@ -60,6 +60,7 @@ h2 {
   margin: 0 2rem;
 }
 
+.nav-bar a,
 .nav-bar-desktop a {
   text-decoration: none;
   color: #f0f4ef;
@@ -136,6 +137,10 @@ h2 > a:hover::after,
 
 button:hover {
   cursor: pointer;
+}
+
+.page-title {
+  color: #f0f4ef;
 }
 
 .search-icon {

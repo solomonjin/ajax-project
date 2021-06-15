@@ -4,6 +4,8 @@ var $closeNavBtn = document.querySelector('.close-nav');
 var $searchForm = document.querySelector('.search-form');
 var $toggleOptionsBtn = document.querySelector('.toggle-options');
 var $moreOptionsForm = document.querySelector('.options');
+var $homeIcon = document.querySelector('.page-title');
+var $homeIconDT = document.querySelector('.nav-bar-desktop .page-title');
 var $searchIcon = document.querySelector('.search-icon');
 var $searchIconDT = document.querySelector('.nav-bar-desktop .search-icon');
 var $viewContainer = document.querySelectorAll('.views');
@@ -20,6 +22,8 @@ $openNavBtn.addEventListener('click', openNavMenu);
 $closeNavBtn.addEventListener('click', closeNavMenu);
 $searchForm.addEventListener('click', toggleButton);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
+$homeIcon.addEventListener('click', showHomePage);
+$homeIconDT.addEventListener('click', showHomePage);
 $searchIcon.addEventListener('click', showSearchForm);
 $searchIconDT.addEventListener('click', showSearchForm);
 $navList.addEventListener('click', clickNavLink);
@@ -52,6 +56,10 @@ function toggleOptions(event) {
   $moreOptionsForm.classList.toggle('show-more-options');
   if (event.target.textContent === 'More Options') event.target.textContent = 'Less Options';
   else event.target.textContent = 'More Options';
+}
+
+function showHomePage(event) {
+  switchView(event.target.getAttribute('data-view'));
 }
 
 function showSearchForm(event) {
