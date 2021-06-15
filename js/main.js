@@ -455,7 +455,7 @@ function generateMoreInfoDOM(recipe) {
   $ingredientsText.textContent = 'Ingredients';
 
   var $ingredientsInfo = document.createElement('div');
-  $ingredientsInfo.className = 'column-half';
+  $ingredientsInfo.className = 'col-45';
   $ingredientsInfo.appendChild($ingredientsText);
   $ingredientsInfo.appendChild($ingredientList);
   $ingredientsInfo.appendChild($instructionsCol);

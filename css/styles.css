@@ -21,7 +21,7 @@
 
 .align-center {
   display: flex;
-  align-content: center;
+  align-items: center;
 }
 
 .text-right {
@@ -209,7 +209,7 @@ form label {
 }
 
 .meal-type-wheel {
-  width: 350px;
+  width: 300px;
   margin-left: 10px;
   color: #69788c;
 }
@@ -219,14 +219,14 @@ form label {
 }
 
 .toggle-button {
-  width: 130px;
+  width: 110px;
   background-color: #f0f4ef;
   border: 1px solid #69788c;
   height: 34px;
   color: #344966;
-  font-size: 15px;
+  font-size: 14px;
   border-radius: 5px;
-  margin: 10px;
+  margin: 5px;
   transition: 0.5s;
 }
 
@@ -258,7 +258,7 @@ form label {
 }
 
 .show-more-options {
-  height: 480px;
+  height: 410px;
 }
 
 .submit-search {
@@ -357,12 +357,16 @@ img.searching {
 
 table {
   width: 100%;
-  text-align: right;
+  text-align: center;
 }
 
 table,
 .ingredient-list {
   font-size: 12px;
+}
+
+.ingredient-list {
+  padding-left: 20px;
 }
 
 .ingredient-list > li {
@@ -420,7 +424,7 @@ table,
 
 @media only screen and (min-width: 768px) {
   .thumbnail {
-    max-width: 128px;
+    max-width: 180px;
   }
 
   .col-35 {
@@ -429,6 +433,11 @@ table,
 
   .col-65 {
     flex-basis: 65%;
+  }
+
+  table,
+  .ingredient-list {
+    font-size: 14px;
   }
 }
 
@@ -459,5 +468,10 @@ table,
 
   .thumbnail {
     max-width: 128px;
+    max-height: 128px;
+  }
+
+  .show-more-options {
+    height: 320px;
   }
 }

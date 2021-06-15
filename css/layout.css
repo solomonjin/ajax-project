@@ -38,6 +38,10 @@
   flex-basis: 100%;
 }
 
+.col-45 {
+  flex-basis: 45%;
+}
+
 .col-65 {
   flex-basis: 100%;
 }
