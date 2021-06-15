@@ -425,14 +425,7 @@ table,
 @media only screen and (min-width: 768px) {
   .thumbnail {
     max-width: 180px;
-  }
-
-  .col-35 {
-    flex-basis: 35%;
-  }
-
-  .col-65 {
-    flex-basis: 65%;
+    max-height: 180px;
   }
 
   table,
@@ -442,10 +435,6 @@ table,
 }
 
 @media only screen and (min-width: 1115px) {
-  .col-half {
-    flex-basis: 50%;
-  }
-
   .nav-bar-desktop {
     display: flex;
   }

@@ -49,3 +49,19 @@
 .col-90 {
   flex-basis: 90%;
 }
+
+@media only screen and (min-width: 768px) {
+  .col-35 {
+    flex-basis: 35%;
+  }
+
+  .col-65 {
+    flex-basis: 65%;
+  }
+}
+
+@media only screen and (min-width: 1115px) {
+  .col-half {
+    flex-basis: 50%;
+  }
+}
