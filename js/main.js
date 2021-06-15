@@ -385,7 +385,7 @@ function generateRecipeDOM(recipe) {
   $thumbNail.className = 'thumbnail';
 
   var $imgContainer = document.createElement('div');
-  $imgContainer.className = 'col-35 justify-start align-center';
+  $imgContainer.className = 'col-35 justify-center align-center';
   $imgContainer.appendChild($thumbNail);
 
   var $moreInfoContainer = generateMoreInfoDOM(recipe);

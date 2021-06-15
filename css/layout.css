@@ -35,11 +35,11 @@
 }
 
 .col-35 {
-  flex-basis: 35%;
+  flex-basis: 100%;
 }
 
 .col-65 {
-  flex-basis: 65%;
+  flex-basis: 100%;
 }
 
 .col-90 {

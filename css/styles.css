@@ -297,7 +297,7 @@ h5 {
 }
 
 .thumbnail {
-  width: 128px;
+  object-fit: fill;
 }
 
 .ingr-num,
@@ -362,7 +362,7 @@ table {
 
 table,
 .ingredient-list {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .ingredient-list > li {
@@ -421,6 +421,14 @@ table,
 @media only screen and (min-width: 768px) {
   .thumbnail {
     max-width: 128px;
+  }
+
+  .col-35 {
+    flex-basis: 35%;
+  }
+
+  .col-65 {
+    flex-basis: 65%;
   }
 }
 
