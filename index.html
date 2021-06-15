@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX Project</title>
+  <title>Recipe Finder</title>
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -22,12 +22,14 @@
   </div>
   <header class="nav-bar">
     <a href="#"><img src="images/menu.png" alt="toggle icon" class="open-nav"></a>
-    <h1>Recipe Finder</h1>
+    <a href="#"><h1 class="page-title" data-view="home">Recipe Finder</h1></a>
     <a href="#"><img src="images/search.svg" alt="search icon" class="search-icon" data-view="search"></a>
   </header>
   <header class="nav-bar-desktop">
     <div class="col-half">
-      <h1>Recipe Finder</h1>
+      <a href="#">
+        <h1 class="page-title" data-view="home">Recipe Finder</h1>
+      </a>
     </div>
     <div class="col-half justify-end">
       <h2><a href="#" data-view="home">Home</a></h2>
@@ -88,95 +90,102 @@
             <div class="col">
               <label for="cuisineType">Cuisine Type</label>
             </div>
-            <div class="col row">
-              <div class="col-half justify-even">
-                <button class="toggle-button" data-type="cuisineType" data-value="American">American</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Asian">Asian</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="British">British</button>
-              </div>
-              <div class="col-half justify-even">
-                <button class="toggle-button" data-type="cuisineType" data-value="Caribbean">Caribbean</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Central Europe">Central Europe</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Chinese">Chinese</button>
-              </div>
-            </div>
-            <div class="col row">
-              <div class="col-half justify-even">
-                <button class="toggle-button" data-type="cuisineType" data-value="Eastern Europe">Eastern Europe</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="French">French</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Indian">Indian</button>
-              </div>
-              <div class="col-half justify-even">
-                <button class="toggle-button" data-type="cuisineType" data-value="Italian">Italian</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Japanese">Japanese</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Kosher">Kosher</button>
-              </div>
-            </div>
-            <div class="col row">
-              <div class="col-half justify-even">
-                <button class="toggle-button" data-type="cuisineType" data-value="Mediterranean">Mediterranean</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Mexican">Mexican</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Middle Eastern">Middle Eastern</button>
-              </div>
-              <div class="col-half justify-even">
-                <button class="toggle-button" data-type="cuisineType" data-value="Nordic">Nordic</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="South American">S. American</button>
-                <button class="toggle-button" data-type="cuisineType" data-value="Aouth East Asian">S.E. Asian</button>
-              </div>
-            </div>
-            <div class="col">
-              <button class="toggle-options margin-bot">More Options</button>
-            </div>
-            <div class="options row">
-              <div class="col">
-                <label for="diet">Diets</label>
+            <div class="search-options">
+              <div class="col row justify-center">
+                <div class="col-half justify-even">
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="American">American</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Asian">Asian</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="British">British</button>
+                </div>
+                <div class="col-half justify-even">
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Caribbean">Caribbean</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Central Europe">Central
+                    Europe</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Chinese">Chinese</button>
+                </div>
               </div>
               <div class="col row">
                 <div class="col-half justify-even">
-                  <button class="toggle-button" data-type="health" data-value="vegetarian">Vegetarian</button>
-                  <button class="toggle-button" data-type="health" data-value="vegan">Vegan</button>
-                  <button class="toggle-button" data-type="health" data-value="paleo">Paleo</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Eastern Europe">Eastern
+                    Europe</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="French">French</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Indian">Indian</button>
                 </div>
                 <div class="col-half justify-even">
-                  <button class="toggle-button" data-type="diet" data-value="high-protein">High-Protein</button>
-                  <button class="toggle-button" data-type="diet" data-value="low-carb">Low-Carb</button>
-                  <button class="toggle-button" data-type="diet" data-value="low-fat">Low-Fat</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Italian">Italian</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Japanese">Japanese</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Kosher">Kosher</button>
                 </div>
-              </div>
-              <div class="col row justify-center margin-bot">
-                <div class="col-half justify-even">
-                  <button class="toggle-button" data-type="health" data-value="low-sugar">Low-Sugar</button>
-                  <button class="toggle-button" data-type="health" data-value="alcohol-free">Alcohol-Free</button>
-                  <button class="toggle-button" data-type="diet" data-value="balanced">Balanced</button>
-                </div>
-              </div>
-              <div class="col">
-                <label for="allergies">Allergies</label>
               </div>
               <div class="col row">
                 <div class="col-half justify-even">
-                  <button class="toggle-button" data-type="health" data-value="gluten-free">Gluten</button>
-                  <button class="toggle-button" data-type="health" data-value="dairy-free">Dairy</button>
-                  <button class="toggle-button" data-type="health" data-value="egg-free">Eggs</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType"
+                    data-value="Mediterranean">Mediterranean</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Mexican">Mexican</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Middle Eastern">Middle
+                    Eastern</button>
                 </div>
                 <div class="col-half justify-even">
-                  <button class="toggle-button" data-type="health" data-value="soy-free">Soy</button>
-                  <button class="toggle-button" data-type="health" data-value="wheat-free">Wheat</button>
-                  <button class="toggle-button" data-type="health" data-value="fish-free">Fish</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Nordic">Nordic</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="South American">S. American</button>
+                  <button class="toggle-button" type="button" data-type="cuisineType" data-value="Aouth East Asian">S.E.
+                    Asian</button>
                 </div>
               </div>
-              <div class="col row justify-center margin-bot">
-                <div class="col-half justify-even">
-                  <button class="toggle-button" data-type="health" data-value="shellfish-free">Shellfish</button>
-                  <button class="toggle-button" data-type="health" data-value="tree-nut-free">Tree Nuts</button>
-                  <button class="toggle-button" data-type="diet" data-value="peanut-free">Peanuts</button>
+              <div class="col">
+                <button class="toggle-options margin-bot">More Options</button>
+              </div>
+              <div class="options row">
+                <div class="col">
+                  <label for="diet">Diets</label>
                 </div>
-              </div>
-              <div class="col-half label-excl row justify-center">
-                <label for="exclusions">Exclusions</label>
-              </div>
-              <div class="col-half">
-                <input class="keywords" type="text" id="exclusions" placeholder="ingredients to exclude, separated by spaces">
+                <div class="col row">
+                  <div class="col-half justify-even">
+                    <button class="toggle-button" type="button" data-type="health" data-value="vegetarian">Vegetarian</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="vegan">Vegan</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="paleo">Paleo</button>
+                  </div>
+                  <div class="col-half justify-even">
+                    <button class="toggle-button" type="button" data-type="diet" data-value="high-protein">High-Protein</button>
+                    <button class="toggle-button" type="button" data-type="diet" data-value="low-carb">Low-Carb</button>
+                    <button class="toggle-button" type="button" data-type="diet" data-value="low-fat">Low-Fat</button>
+                  </div>
+                </div>
+                <div class="col row justify-center margin-bot">
+                  <div class="col-half justify-even">
+                    <button class="toggle-button" type="button" data-type="health" data-value="low-sugar">Low-Sugar</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="alcohol-free">Alcohol-Free</button>
+                    <button class="toggle-button" type="button" data-type="diet" data-value="balanced">Balanced</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <label for="allergies">Allergies</label>
+                </div>
+                <div class="col row">
+                  <div class="col-half justify-even">
+                    <button class="toggle-button" type="button" data-type="health" data-value="gluten-free">Gluten</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="dairy-free">Dairy</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="egg-free">Eggs</button>
+                  </div>
+                  <div class="col-half justify-even">
+                    <button class="toggle-button" type="button" data-type="health" data-value="soy-free">Soy</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="wheat-free">Wheat</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="fish-free">Fish</button>
+                  </div>
+                </div>
+                <div class="col row justify-center margin-bot">
+                  <div class="col-half justify-even">
+                    <button class="toggle-button" type="button" data-type="health" data-value="shellfish-free">Shellfish</button>
+                    <button class="toggle-button" type="button" data-type="health" data-value="tree-nut-free">Tree Nuts</button>
+                    <button class="toggle-button" type="button" data-type="diet" data-value="peanut-free">Peanuts</button>
+                  </div>
+                </div>
+                <div class="col-half label-excl row justify-center">
+                  <label for="exclusions">Exclusions</label>
+                </div>
+                <div class="col-half">
+                  <input class="keywords" type="text" id="exclusions" placeholder="ingredients to exclude, separated by spaces">
+                </div>
               </div>
             </div>
             <button type="submit" class="search-btn submit-search">Search</button>

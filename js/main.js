@@ -2,8 +2,11 @@ var $openNavBtn = document.querySelector('.open-nav');
 var $toggleNavMenu = document.querySelector('.nav-toggle');
 var $closeNavBtn = document.querySelector('.close-nav');
 var $searchForm = document.querySelector('.search-form');
+var $searchOptions = document.querySelector('.search-options');
 var $toggleOptionsBtn = document.querySelector('.toggle-options');
 var $moreOptionsForm = document.querySelector('.options');
+var $homeIcon = document.querySelector('.page-title');
+var $homeIconDT = document.querySelector('.nav-bar-desktop .page-title');
 var $searchIcon = document.querySelector('.search-icon');
 var $searchIconDT = document.querySelector('.nav-bar-desktop .search-icon');
 var $viewContainer = document.querySelectorAll('.views');
@@ -18,14 +21,16 @@ var $moreRecipesBtn = document.querySelector('.more-recipes');
 
 $openNavBtn.addEventListener('click', openNavMenu);
 $closeNavBtn.addEventListener('click', closeNavMenu);
-$searchForm.addEventListener('click', toggleButton);
+$searchOptions.addEventListener('click', toggleButton);
+$searchForm.addEventListener('submit', submitSearch);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
+$homeIcon.addEventListener('click', showHomePage);
+$homeIconDT.addEventListener('click', showHomePage);
 $searchIcon.addEventListener('click', showSearchForm);
 $searchIconDT.addEventListener('click', showSearchForm);
 $navList.addEventListener('click', clickNavLink);
 $navBar.addEventListener('click', clickNavLink);
 $searchButton.addEventListener('click', showSearchForm);
-$submitSearchBtn.addEventListener('click', submitSearch);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
@@ -52,6 +57,10 @@ function toggleOptions(event) {
   $moreOptionsForm.classList.toggle('show-more-options');
   if (event.target.textContent === 'More Options') event.target.textContent = 'Less Options';
   else event.target.textContent = 'More Options';
+}
+
+function showHomePage(event) {
+  switchView(event.target.getAttribute('data-view'));
 }
 
 function showSearchForm(event) {
@@ -85,6 +94,7 @@ function clickNavLink(event) {
 }
 
 function submitSearch(event) {
+  event.preventDefault();
   showSearching($submitSearchBtn);
   var $toggleButtonList = document.querySelectorAll('.toggle-button');
   var searchObj = {
@@ -375,7 +385,7 @@ function generateRecipeDOM(recipe) {
   $thumbNail.className = 'thumbnail';
 
   var $imgContainer = document.createElement('div');
-  $imgContainer.className = 'col-35 justify-start align-center';
+  $imgContainer.className = 'col-35 justify-center align-center';
   $imgContainer.appendChild($thumbNail);
 
   var $moreInfoContainer = generateMoreInfoDOM(recipe);
@@ -445,7 +455,7 @@ function generateMoreInfoDOM(recipe) {
   $ingredientsText.textContent = 'Ingredients';
 
   var $ingredientsInfo = document.createElement('div');
-  $ingredientsInfo.className = 'column-half';
+  $ingredientsInfo.className = 'col-45';
   $ingredientsInfo.appendChild($ingredientsText);
   $ingredientsInfo.appendChild($ingredientList);
   $ingredientsInfo.appendChild($instructionsCol);
