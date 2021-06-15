@@ -2,6 +2,7 @@ var $openNavBtn = document.querySelector('.open-nav');
 var $toggleNavMenu = document.querySelector('.nav-toggle');
 var $closeNavBtn = document.querySelector('.close-nav');
 var $searchForm = document.querySelector('.search-form');
+var $searchOptions = document.querySelector('.search-options');
 var $toggleOptionsBtn = document.querySelector('.toggle-options');
 var $moreOptionsForm = document.querySelector('.options');
 var $homeIcon = document.querySelector('.page-title');
@@ -20,7 +21,8 @@ var $moreRecipesBtn = document.querySelector('.more-recipes');
 
 $openNavBtn.addEventListener('click', openNavMenu);
 $closeNavBtn.addEventListener('click', closeNavMenu);
-$searchForm.addEventListener('click', toggleButton);
+$searchOptions.addEventListener('click', toggleButton);
+$searchForm.addEventListener('submit', submitSearch);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
 $homeIcon.addEventListener('click', showHomePage);
 $homeIconDT.addEventListener('click', showHomePage);
@@ -29,7 +31,6 @@ $searchIconDT.addEventListener('click', showSearchForm);
 $navList.addEventListener('click', clickNavLink);
 $navBar.addEventListener('click', clickNavLink);
 $searchButton.addEventListener('click', showSearchForm);
-$submitSearchBtn.addEventListener('click', submitSearch);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
@@ -93,6 +94,7 @@ function clickNavLink(event) {
 }
 
 function submitSearch(event) {
+  event.preventDefault();
   showSearching($submitSearchBtn);
   var $toggleButtonList = document.querySelectorAll('.toggle-button');
   var searchObj = {
