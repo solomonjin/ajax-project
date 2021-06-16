@@ -32,6 +32,10 @@
   text-align: center;
 }
 
+.relative {
+  position: relative;
+}
+
 .nav-bar-desktop,
 .nav-bar {
   background-color: #344966;
@@ -276,6 +280,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 h3,
+h4,
 h5 {
   font-weight: 400;
 }
@@ -423,6 +428,50 @@ table,
   color: #f0f4ef;
 }
 
+.modal {
+  position: fixed;
+  width: 80%;
+  background-color: #f0f4ef;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border-radius: 5px;
+  padding: 10px 30px;
+}
+
+.modal-overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+i {
+  font-size: 150%;
+  color: #344966;
+  position: absolute;
+}
+
+i.close-modal {
+  top: 10px;
+  right: 10px;
+}
+
+i.questionIcon {
+  top: 20px;
+  right: 10px;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
 @media only screen and (min-width: 768px) {
   .thumbnail {
     max-width: 180px;
@@ -432,6 +481,10 @@ table,
   table,
   .ingredient-list {
     font-size: 14px;
+  }
+
+  .modal {
+    width: 50%;
   }
 }
 
@@ -463,5 +516,9 @@ table,
 
   .show-more-options {
     height: 320px;
+  }
+
+  .modal {
+    width: 30%;
   }
 }

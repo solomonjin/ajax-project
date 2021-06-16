@@ -1,3 +1,5 @@
+/* global gsap */
+
 var $toggleNavMenu = document.querySelector('.nav-toggle');
 var $closeNavBtn = document.querySelector('.close-nav');
 var $searchForm = document.querySelector('.search-form');
@@ -14,6 +16,8 @@ var $recipeListContainer = document.querySelector('.recipe-list');
 var $favoritesContainer = document.querySelector('.favorite-list');
 var $dailyContainer = document.querySelector('.daily-list');
 var $moreRecipesBtn = document.querySelector('.more-recipes');
+var $closeModalBtn = document.querySelector('.close-modal');
+var $modal = document.querySelector('.modal');
 
 $closeNavBtn.addEventListener('click', toggleNavMenu);
 $searchOptions.addEventListener('click', toggleButton);
@@ -27,6 +31,7 @@ window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
 $dailyContainer.addEventListener('click', clickOnNutrition);
+$closeModalBtn.addEventListener('click', toggleModal);
 
 function toggleNavMenu(event) {
   $toggleNavMenu.classList.toggle('show-menu');
@@ -586,9 +591,13 @@ function updatePageHeader(view) {
     $headerText.className = 'page-header';
     $headerText.textContent = 'Favorite Recipes';
 
+    var $questionIcon = document.createElement('i');
+    $questionIcon.className = 'fas fa-question-circle questionIcon';
+
     $headerContainer = document.createElement('div');
-    $headerContainer.className = 'col-90 header-container';
+    $headerContainer.className = 'col-90 header-container relative';
     $headerContainer.appendChild($headerText);
+    $headerContainer.appendChild($questionIcon);
 
     $favoritesContainer.appendChild($headerContainer);
   } else if (view === 'daily') {
@@ -596,9 +605,13 @@ function updatePageHeader(view) {
     $headerText.className = 'page-header';
     $headerText.textContent = 'Daily Nutrition';
 
+    $questionIcon = document.createElement('i');
+    $questionIcon.className = 'fas fa-question-circle questionIcon';
+
     $headerContainer = document.createElement('div');
-    $headerContainer.className = 'col-90 header-container';
+    $headerContainer.className = 'col-90 header-container relative';
     $headerContainer.appendChild($headerText);
+    $headerContainer.appendChild($questionIcon);
 
     $dailyContainer.appendChild($headerContainer);
   }
@@ -688,6 +701,8 @@ function findRecipeIndex(recipeList, uri) {
 }
 
 function clickOnRecipe(event) {
+  if (event.target.classList.contains('questionIcon')) clickQuestionIcon(event);
+
   if (!event.target.closest('.col-65') && !event.target.closest('.col-35')) return;
 
   if (event.target.tagName === 'IMG' && event.target.classList.contains('unfavorite-icon')) {
@@ -763,4 +778,41 @@ function getSumNutrients(recipeList) {
     allNutrients.push(sumNutrients);
   }
   return allNutrients;
+}
+
+function toggleModal(event) {
+  if ($modal.classList.contains('open')) {
+    gsap.to('.modal', { y: 30, ease: 'circ.out', duration: 0.5, autoAlpha: 0 });
+    gsap.to('.modal-overlay', { ease: 'circ.out', duration: 0.5, autoAlpha: 0 });
+    $modal.classList.toggle('open');
+  } else {
+    gsap.to('.modal', { y: -30, ease: 'circ.out', duration: 0.5, autoAlpha: 1 });
+    gsap.to('.modal-overlay', { ease: 'circ.out', duration: 0.5, autoAlpha: 1 });
+    $modal.classList.toggle('open');
+  }
+}
+
+function clickQuestionIcon(event) {
+  var $modalText = document.querySelector('.modal-text');
+  destroyChildren($modalText);
+  var $modalHeader = document.createElement('h2');
+  var $instructions = document.createElement('h4');
+  if (data.view === 'favorites') {
+    $modalHeader.textContent = 'Favorite Recipes';
+    $instructions.textContent = 'This page will display a list of your favorite recipes. To add recipes to this list, search for recipes and click on the heart icons.';
+  } else if (data.view === 'daily') {
+    $modalHeader.textContent = 'Daily Nutrition';
+    $instructions.textContent = 'This page will display a table of the daily recipe\'s total daily nutritional intake. To add recipes to this list, search for recipes and click on the calendar icons.';
+  }
+  var $headerCol = document.createElement('div');
+  $headerCol.className = 'col';
+  $headerCol.appendChild($modalHeader);
+
+  var $instructionsCol = document.createElement('div');
+  $instructionsCol.className = 'col';
+  $instructionsCol.appendChild($instructions);
+
+  $modalText.appendChild($headerCol);
+  $modalText.appendChild($instructionsCol);
+  toggleModal();
 }
