@@ -19,8 +19,8 @@ var $favoritesContainer = document.querySelector('.favorite-list');
 var $dailyContainer = document.querySelector('.daily-list');
 var $moreRecipesBtn = document.querySelector('.more-recipes');
 
-$openNavBtn.addEventListener('click', openNavMenu);
-$closeNavBtn.addEventListener('click', closeNavMenu);
+$openNavBtn.addEventListener('click', toggleNavMenu);
+$closeNavBtn.addEventListener('click', toggleNavMenu);
 $searchOptions.addEventListener('click', toggleButton);
 $searchForm.addEventListener('submit', submitSearch);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
@@ -36,12 +36,8 @@ document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
 $dailyContainer.addEventListener('click', clickOnNutrition);
 
-function openNavMenu(event) {
-  $toggleNavMenu.classList.add('show-menu');
-}
-
-function closeNavMenu(event) {
-  $toggleNavMenu.classList.remove('show-menu');
+function toggleNavMenu(event) {
+  $toggleNavMenu.classList.toggle('show-menu');
 }
 
 function toggleButton(event) {
@@ -73,7 +69,7 @@ function switchView(view) {
     if ($viewContainer[i].getAttribute('data-view') === view) $viewContainer[i].classList.remove('hidden');
     else $viewContainer[i].classList.add('hidden');
   }
-  closeNavMenu();
+  if ($toggleNavMenu.classList.contains('show-menu')) toggleNavMenu();
 }
 
 function clickNavLink(event) {
@@ -609,7 +605,7 @@ function updatePageHeader(view) {
   } else if (view === 'daily') {
     $headerText = document.createElement('h3');
     $headerText.className = 'page-header';
-    $headerText.textContent = 'Daily Recipes';
+    $headerText.textContent = 'Daily Nutrition';
 
     $headerContainer = document.createElement('div');
     $headerContainer.className = 'col-90 header-container';
@@ -626,7 +622,7 @@ function destroyChildren(el) {
 function generateRecipeList(recipes, $container) {
   if (recipes.length === 0) {
     var $noRecipes = document.createElement('h3');
-    $noRecipes.textContent = 'No recipes found';
+    $noRecipes.innerText = 'No recipes found. \n To begin, search for recipes and add it to your list!';
     $noRecipes.className = 'no-recipes text-center';
     $container.appendChild($noRecipes);
   } else {

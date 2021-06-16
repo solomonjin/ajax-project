@@ -3,7 +3,7 @@
 var data = {
   search: null,
   searchRecipes: [],
-  view: null,
+  view: 'home',
   favorites: [],
   dailyRecipes: []
 };
