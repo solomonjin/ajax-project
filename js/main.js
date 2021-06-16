@@ -71,10 +71,16 @@ function handleNavigation(event) {
   }
   var view = event.target.getAttribute('data-view');
   if (view === 'favorites') {
+    data.view = view;
+    if (!data.viewFav) clickQuestionIcon();
+    data.viewFav = true;
     destroyChildren($favoritesContainer);
     updatePageHeader(view);
     generateRecipeList(data.favorites, $favoritesContainer);
   } else if (view === 'daily') {
+    data.view = view;
+    if (!data.viewDaily) clickQuestionIcon();
+    data.viewDaily = true;
     destroyChildren($dailyContainer);
     updatePageHeader(view);
     generateDailyTableDOM(data.dailyRecipes);
