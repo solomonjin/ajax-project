@@ -19,10 +19,10 @@ $closeNavBtn.addEventListener('click', toggleNavMenu);
 $searchOptions.addEventListener('click', toggleButton);
 $searchForm.addEventListener('submit', submitSearch);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
-$navList.addEventListener('click', clickNavLink);
-$navBar.addEventListener('click', clickNavLink);
-$navBarDT.addEventListener('click', clickNavLink);
-$searchButton.addEventListener('click', clickNavLink);
+$navList.addEventListener('click', handleNavigation);
+$navBar.addEventListener('click', handleNavigation);
+$navBarDT.addEventListener('click', handleNavigation);
+$searchButton.addEventListener('click', handleNavigation);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
@@ -56,7 +56,7 @@ function switchView(view) {
   if ($toggleNavMenu.classList.contains('show-menu')) toggleNavMenu();
 }
 
-function clickNavLink(event) {
+function handleNavigation(event) {
   if (event.target.tagName !== 'A' && event.target.tagName !== 'IMG' &&
   event.target.tagName !== 'BUTTON' && event.target.tagName !== 'SPAN') return;
 
