@@ -402,7 +402,7 @@ function generateRecipeDOM(recipe) {
   $row.appendChild($recipeContainer);
 
   var $recipe = document.createElement('div');
-  $recipe.className = 'col-half';
+  $recipe.className = 'col-half recipe-box';
   $recipe.appendChild($row);
 
   $recipeListContainer.appendChild($recipe);
@@ -638,6 +638,12 @@ function generateRecipeList(recipes, $container) {
       $container.appendChild(generateRecipeDOM(recipes[i]));
     }
   }
+  gsap.from('.recipe-box', {
+    duration: 0.5,
+    opacity: 0,
+    delay: 0.25,
+    stagger: 0.2
+  });
 }
 
 function showSearching($button) {
