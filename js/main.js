@@ -22,7 +22,7 @@ $toggleOptionsBtn.addEventListener('click', toggleOptions);
 $navList.addEventListener('click', clickNavLink);
 $navBar.addEventListener('click', clickNavLink);
 $navBarDT.addEventListener('click', clickNavLink);
-$searchButton.addEventListener('click', showSearchForm);
+$searchButton.addEventListener('click', clickNavLink);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
@@ -47,14 +47,6 @@ function toggleOptions(event) {
   else event.target.textContent = 'More Options';
 }
 
-function showHomePage(event) {
-  switchView(event.target.getAttribute('data-view'));
-}
-
-function showSearchForm(event) {
-  switchView(event.target.getAttribute('data-view'));
-}
-
 function switchView(view) {
   data.view = view;
   for (var i = 0; i < $viewContainer.length; i++) {
@@ -65,7 +57,8 @@ function switchView(view) {
 }
 
 function clickNavLink(event) {
-  if (event.target.tagName !== 'A' && event.target.tagName !== 'IMG') return;
+  if (event.target.tagName !== 'A' && event.target.tagName !== 'IMG' &&
+  event.target.tagName !== 'BUTTON' && event.target.tagName !== 'SPAN') return;
 
   if (event.target.classList.contains('open-nav')) {
     toggleNavMenu();
