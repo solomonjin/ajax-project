@@ -1,17 +1,13 @@
-var $openNavBtn = document.querySelector('.open-nav');
 var $toggleNavMenu = document.querySelector('.nav-toggle');
 var $closeNavBtn = document.querySelector('.close-nav');
 var $searchForm = document.querySelector('.search-form');
 var $searchOptions = document.querySelector('.search-options');
 var $toggleOptionsBtn = document.querySelector('.toggle-options');
 var $moreOptionsForm = document.querySelector('.options');
-var $homeIcon = document.querySelector('.page-title');
-var $homeIconDT = document.querySelector('.nav-bar-desktop .page-title');
-var $searchIcon = document.querySelector('.search-icon');
-var $searchIconDT = document.querySelector('.nav-bar-desktop .search-icon');
 var $viewContainer = document.querySelectorAll('.views');
 var $navList = document.querySelector('.nav-list');
-var $navBar = document.querySelector('.nav-bar-desktop');
+var $navBar = document.querySelector('.nav-bar');
+var $navBarDT = document.querySelector('.nav-bar-desktop');
 var $searchButton = document.querySelector('.search-button');
 var $submitSearchBtn = document.querySelector('.submit-search');
 var $recipeListContainer = document.querySelector('.recipe-list');
@@ -19,17 +15,13 @@ var $favoritesContainer = document.querySelector('.favorite-list');
 var $dailyContainer = document.querySelector('.daily-list');
 var $moreRecipesBtn = document.querySelector('.more-recipes');
 
-$openNavBtn.addEventListener('click', toggleNavMenu);
 $closeNavBtn.addEventListener('click', toggleNavMenu);
 $searchOptions.addEventListener('click', toggleButton);
 $searchForm.addEventListener('submit', submitSearch);
 $toggleOptionsBtn.addEventListener('click', toggleOptions);
-$homeIcon.addEventListener('click', showHomePage);
-$homeIconDT.addEventListener('click', showHomePage);
-$searchIcon.addEventListener('click', showSearchForm);
-$searchIconDT.addEventListener('click', showSearchForm);
 $navList.addEventListener('click', clickNavLink);
 $navBar.addEventListener('click', clickNavLink);
+$navBarDT.addEventListener('click', clickNavLink);
 $searchButton.addEventListener('click', showSearchForm);
 window.addEventListener('DOMContentLoaded', handleContentLoad);
 document.addEventListener('click', clickOnRecipe);
@@ -73,8 +65,12 @@ function switchView(view) {
 }
 
 function clickNavLink(event) {
-  if (event.target.tagName !== 'A') return;
+  if (event.target.tagName !== 'A' && event.target.tagName !== 'IMG') return;
 
+  if (event.target.classList.contains('open-nav')) {
+    toggleNavMenu();
+    return;
+  }
   var view = event.target.getAttribute('data-view');
   if (view === 'favorites') {
     destroyChildren($favoritesContainer);
