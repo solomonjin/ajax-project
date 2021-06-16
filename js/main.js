@@ -107,6 +107,7 @@ function submitSearch(event) {
   var searchURL = generateSearchURL(searchObj);
   makeQuery(searchURL);
   destroyChildren($recipeListContainer);
+  resetSearchForm();
 }
 
 function getKeyWords(str) {
@@ -625,6 +626,14 @@ function updatePageHeader(view) {
 
 function destroyChildren(el) {
   while (el.firstChild) el.firstChild.remove();
+}
+
+function resetSearchForm() {
+  $searchForm.reset();
+  var $toggleButtonList = document.querySelectorAll('.toggle-button');
+  for (var i = 0; i < $toggleButtonList.length; i++) {
+    if ($toggleButtonList[i].classList.contains('toggled')) $toggleButtonList[i].classList.toggle('toggled');
+  }
 }
 
 function generateRecipeList(recipes, $container) {
