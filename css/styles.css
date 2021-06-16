@@ -292,7 +292,8 @@ h5 {
   margin: 1rem auto 0;
 }
 
-.col-65:hover {
+.recipe-container .col-35:hover,
+.recipe-container .col-65:hover {
   cursor: pointer;
 }
 

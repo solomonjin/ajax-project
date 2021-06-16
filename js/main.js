@@ -699,7 +699,7 @@ function findRecipeIndex(recipeList, uri) {
 }
 
 function clickOnRecipe(event) {
-  if (!event.target.closest('.col-65')) return;
+  if (!event.target.closest('.col-65') && !event.target.closest('.col-35')) return;
 
   if (event.target.tagName === 'IMG' && event.target.classList.contains('unfavorite-icon')) {
     event.preventDefault();
