@@ -634,6 +634,10 @@ function resetSearchForm() {
   for (var i = 0; i < $toggleButtonList.length; i++) {
     if ($toggleButtonList[i].classList.contains('toggled')) $toggleButtonList[i].classList.toggle('toggled');
   }
+  if ($toggleOptionsBtn.classList.contains('show-options')) {
+    $toggleOptionsBtn.classList.toggle('show-options');
+    $moreOptionsForm.classList.toggle('show-more-options');
+  }
 }
 
 function generateRecipeList(recipes, $container) {
