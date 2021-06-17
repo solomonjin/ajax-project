@@ -68,6 +68,13 @@ h2 {
 .nav-bar-desktop a {
   text-decoration: none;
   color: #f0f4ef;
+  height: 32px;
+  margin-bottom: 7px;
+}
+
+a.open-nav {
+  height: 28px;
+  margin-bottom: 11px;
 }
 
 .nav-bar img {
