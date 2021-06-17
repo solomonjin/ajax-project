@@ -3,9 +3,11 @@
 var data = {
   search: null,
   searchRecipes: [],
-  view: null,
+  view: 'home',
   favorites: [],
-  dailyRecipes: []
+  dailyRecipes: [],
+  viewFav: false,
+  viewDaily: false
 };
 
 var previousData = localStorage.getItem('user-recipe-data');
