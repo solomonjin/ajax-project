@@ -1,4 +1,5 @@
 /* global gsap */
+/* global ScrollTrigger */
 
 var $toggleNavMenu = document.querySelector('.nav-toggle');
 var $closeNavBtn = document.querySelector('.close-nav');
@@ -646,17 +647,33 @@ function generateRecipeList(recipes, $container) {
     $noRecipes.innerText = 'No recipes found. \n To begin, search for recipes and add it to your list!';
     $noRecipes.className = 'no-recipes text-center';
     $container.appendChild($noRecipes);
-  } else {
+  } else if (data.view === 'recipe-list') {
+    var recipeBox = [];
     for (var i = 0; i < recipes.length; i++) {
+      recipeBox.push(generateRecipeDOM(recipes[i]));
+    }
+    ScrollTrigger.batch(recipeBox, {
+      onEnter: batch => {
+        gsap.from(batch, { autoAlpha: 0, stagger: 0.2 });
+      }
+    });
+  } else {
+    for (i = 0; i < recipes.length; i++) {
       $container.appendChild(generateRecipeDOM(recipes[i]));
     }
+    ScrollTrigger.batch('.recipe-box', {
+      onEnter: batch => {
+        gsap.from(batch, { autoAlpha: 0, stagger: 0.2 });
+      }
+    });
   }
-  gsap.from('.recipe-box', {
-    duration: 0.5,
-    opacity: 0,
-    delay: 0.25,
-    stagger: 0.2
-  });
+  // gsap.from('.recipe-box', {
+  //   duration: 0.5,
+  //   opacity: 0,
+  //   delay: 0.25,
+  //   stagger: 0.2
+  // });
+
 }
 
 function showSearching($button) {
