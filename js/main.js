@@ -201,8 +201,8 @@ function loadData(event) {
     addSearchRecipes();
     destroyChildren($recipeListContainer);
     updatePageHeader('recipe-list');
-    generateRecipeList(data.searchRecipes, $recipeListContainer);
     switchView('recipe-list');
+    generateRecipeList(data.searchRecipes, $recipeListContainer);
     resetSearchButton();
   }
 }
@@ -658,6 +658,7 @@ function generateRecipeList(recipes, $container) {
       }
     });
   } else {
+    destroyChildren($recipeListContainer);
     for (i = 0; i < recipes.length; i++) {
       $container.appendChild(generateRecipeDOM(recipes[i]));
     }
@@ -667,13 +668,6 @@ function generateRecipeList(recipes, $container) {
       }
     });
   }
-  // gsap.from('.recipe-box', {
-  //   duration: 0.5,
-  //   opacity: 0,
-  //   delay: 0.25,
-  //   stagger: 0.2
-  // });
-
 }
 
 function showSearching($button) {
