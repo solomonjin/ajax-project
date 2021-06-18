@@ -33,6 +33,7 @@ document.addEventListener('click', clickOnRecipe);
 $moreRecipesBtn.addEventListener('click', showMoreRecipes);
 $dailyContainer.addEventListener('click', clickOnNutrition);
 $closeModalBtn.addEventListener('click', toggleModal);
+gsap.set('.transition-overlay', { yPercent: 100 });
 
 function toggleNavMenu(event) {
   $toggleNavMenu.classList.toggle('show-menu');
@@ -54,12 +55,26 @@ function toggleOptions(event) {
 }
 
 function switchView(view) {
+  if ($toggleNavMenu.classList.contains('show-menu')) toggleNavMenu();
   data.view = view;
+  playIntroTransition();
+  setTimeout(() => { loadView(view); }, 1500);
+  playOutroTransition();
+}
+
+function loadView(view) {
   for (var i = 0; i < $viewContainer.length; i++) {
     if ($viewContainer[i].getAttribute('data-view') === view) $viewContainer[i].classList.remove('hidden');
     else $viewContainer[i].classList.add('hidden');
   }
-  if ($toggleNavMenu.classList.contains('show-menu')) toggleNavMenu();
+}
+
+function playIntroTransition() {
+  gsap.fromTo('.transition-overlay', { yPercent: -100 }, { duration: 1.5, yPercent: 0, ease: 'power4.inOut' });
+}
+
+function playOutroTransition() {
+  gsap.to('.transition-overlay', { yPercent: 100, delay: 1.5, ease: 'power4.inOut', duration: 1.5 });
 }
 
 function handleNavigation(event) {
@@ -701,7 +716,7 @@ function handleContentLoad(event) {
     generateDailyTableDOM(data.dailyRecipes);
     generateRecipeList(data.dailyRecipes, $dailyContainer);
   }
-  switchView(data.view);
+  loadView(data.view);
 }
 
 function clickHeart(event) {
