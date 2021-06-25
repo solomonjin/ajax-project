@@ -295,115 +295,115 @@ function generateRecipeDOM(recipe) {
   </div>
   */
 
-  var $recipeName = document.createElement('h3');
+  const $recipeName = document.createElement('h3');
   $recipeName.className = 'recipe-name';
   $recipeName.textContent = recipe.label;
 
-  var $recipeNameCol = document.createElement('div');
+  const $recipeNameCol = document.createElement('div');
   $recipeNameCol.className = 'col';
   $recipeNameCol.appendChild($recipeName);
 
-  var $calorieNum = document.createElement('span');
+  const $calorieNum = document.createElement('span');
   $calorieNum.className = 'calorie-num';
   $calorieNum.textContent = parseInt(recipe.calories / recipe.yield);
 
-  var $calorieText = document.createElement('h5');
+  const $calorieText = document.createElement('h5');
   $calorieText.className = 'recipe-info';
   $calorieText.textContent = ' Calories/Serv';
   $calorieText.prepend($calorieNum);
 
-  var $calorieCol = document.createElement('div');
+  const $calorieCol = document.createElement('div');
   $calorieCol.className = 'column-half';
   $calorieCol.appendChild($calorieText);
 
-  var $ingrNum = document.createElement('span');
+  const $ingrNum = document.createElement('span');
   $ingrNum.className = 'ingr-num';
   $ingrNum.textContent = recipe.ingredientLines.length;
 
-  var $ingrText = document.createElement('h5');
+  const $ingrText = document.createElement('h5');
   $ingrText.className = 'recipe-info';
   $ingrText.textContent = ' Ingredients';
   $ingrText.prepend($ingrNum);
 
-  var $ingrCol = document.createElement('div');
+  const $ingrCol = document.createElement('div');
   $ingrCol.className = 'column-half text-right';
   $ingrCol.appendChild($ingrText);
 
-  var $calIngrCol = document.createElement('div');
+  const $calIngrCol = document.createElement('div');
   $calIngrCol.className = 'col row';
   $calIngrCol.appendChild($calorieCol);
   $calIngrCol.appendChild($ingrCol);
 
-  var $dayPlusIcon = document.createElement('img');
+  const $dayPlusIcon = document.createElement('img');
   $dayPlusIcon.setAttribute('src', 'images/calendar-plus.svg');
   $dayPlusIcon.setAttribute('alt', 'day plus icon');
   $dayPlusIcon.className = 'daily-icon';
   if (!notInData(recipe.uri, data.dailyRecipes)) $dayPlusIcon.className = 'daily-icon transparent';
 
-  var $dayMinusIcon = document.createElement('img');
+  const $dayMinusIcon = document.createElement('img');
   $dayMinusIcon.setAttribute('src', 'images/calendar-minus.svg');
   $dayMinusIcon.setAttribute('alt', 'day minus icon');
   $dayMinusIcon.className = 'daily-minus-icon';
 
-  var $dayIconContainer = document.createElement('div');
+  const $dayIconContainer = document.createElement('div');
   $dayIconContainer.className = 'icon-container';
   $dayIconContainer.appendChild($dayPlusIcon);
   $dayIconContainer.appendChild($dayMinusIcon);
 
-  var $heartIcon = document.createElement('img');
+  const $heartIcon = document.createElement('img');
   $heartIcon.setAttribute('src', 'images/heart.svg');
   $heartIcon.setAttribute('alt', 'favorites icon');
   $heartIcon.className = 'favorite-icon';
 
-  var $noHeartIcon = document.createElement('img');
+  const $noHeartIcon = document.createElement('img');
   $noHeartIcon.setAttribute('src', 'images/heart-no.svg');
   $noHeartIcon.setAttribute('alt', 'unfavorite icon');
   $noHeartIcon.className = 'unfavorite-icon transparent';
   if (!notInData(recipe.uri, data.favorites)) $noHeartIcon.className = 'unfavorite-icon';
 
-  var $heartIconContainer = document.createElement('div');
+  const $heartIconContainer = document.createElement('div');
   $heartIconContainer.className = 'icon-container';
   $heartIconContainer.appendChild($heartIcon);
   $heartIconContainer.appendChild($noHeartIcon);
 
-  var $iconCol = document.createElement('div');
+  const $iconCol = document.createElement('div');
   $iconCol.className = 'col justify-end icon-col';
   $iconCol.appendChild($dayIconContainer);
   $iconCol.appendChild($heartIconContainer);
 
-  var $textContainer = document.createElement('div');
+  const $textContainer = document.createElement('div');
   $textContainer.className = 'col-65 row';
   $textContainer.appendChild($recipeNameCol);
   $textContainer.appendChild($calIngrCol);
   $textContainer.appendChild($iconCol);
 
-  var $thumbNail = document.createElement('img');
+  const $thumbNail = document.createElement('img');
   $thumbNail.setAttribute('src', recipe.image);
   $thumbNail.setAttribute('alt', 'recipe preview');
   $thumbNail.className = 'thumbnail';
 
-  var $imgContainer = document.createElement('div');
+  const $imgContainer = document.createElement('div');
   $imgContainer.className = 'col-35 justify-center align-center';
   $imgContainer.appendChild($thumbNail);
 
-  var $moreInfoContainer = generateMoreInfoDOM(recipe);
+  const $moreInfoContainer = generateMoreInfoDOM(recipe);
 
-  var $innerRow = document.createElement('div');
+  const $innerRow = document.createElement('div');
   $innerRow.className = 'row';
   $innerRow.appendChild($imgContainer);
   $innerRow.appendChild($textContainer);
   $innerRow.appendChild($moreInfoContainer);
 
-  var $recipeContainer = document.createElement('div');
+  const $recipeContainer = document.createElement('div');
   $recipeContainer.className = 'row col-90 recipe-container';
   $recipeContainer.setAttribute('data-uri', recipe.uri);
   $recipeContainer.appendChild($innerRow);
 
-  var $row = document.createElement('div');
+  const $row = document.createElement('div');
   $row.className = 'row';
   $row.appendChild($recipeContainer);
 
-  var $recipe = document.createElement('div');
+  const $recipe = document.createElement('div');
   $recipe.className = 'col-half recipe-box';
   $recipe.appendChild($row);
 
@@ -412,53 +412,53 @@ function generateRecipeDOM(recipe) {
 }
 
 function generateMoreInfoDOM(recipe) {
-  var $tBody = document.createElement('tbody');
-  var $nutrientTable = document.createElement('table');
+  const $tBody = document.createElement('tbody');
+  const $nutrientTable = document.createElement('table');
   $nutrientTable.appendChild($tBody);
-  for (var key in recipe.totalDaily) {
+  for (const key in recipe.totalDaily) {
     $tBody.appendChild(generateTableRowDOM(recipe, key));
   }
 
-  var $nutritionText = document.createElement('h3');
+  const $nutritionText = document.createElement('h3');
   $nutritionText.textContent = 'Nutrition';
   $nutritionText.className = 'info-header';
 
-  var $instructionsURL = document.createElement('a');
+  const $instructionsURL = document.createElement('a');
   $instructionsURL.setAttribute('href', recipe.url);
   $instructionsURL.textContent = 'Full Instructions';
 
-  var $instructionsText = document.createElement('h5');
+  const $instructionsText = document.createElement('h5');
   $instructionsText.className = 'instructions-url';
   $instructionsText.appendChild($instructionsURL);
 
-  var $instructionsCol = document.createElement('div');
+  const $instructionsCol = document.createElement('div');
   $instructionsCol.className = 'col';
   $instructionsCol.appendChild($instructionsText);
 
-  var $nutritionInfo = document.createElement('div');
+  const $nutritionInfo = document.createElement('div');
   $nutritionInfo.className = 'column-half nutrition-info';
   $nutritionInfo.appendChild($nutritionText);
   $nutritionInfo.appendChild($nutrientTable);
 
-  var $ingredientList = document.createElement('ul');
+  const $ingredientList = document.createElement('ul');
   $ingredientList.className = 'ingredient-list';
-  for (var i = 0; i < recipe.ingredientLines.length; i++) {
-    var $ingredient = document.createElement('li');
+  for (let i = 0; i < recipe.ingredientLines.length; i++) {
+    const $ingredient = document.createElement('li');
     $ingredient.textContent = recipe.ingredientLines[i];
     $ingredientList.appendChild($ingredient);
   }
 
-  var $ingredientsText = document.createElement('h3');
+  const $ingredientsText = document.createElement('h3');
   $ingredientsText.className = 'info-header';
   $ingredientsText.textContent = 'Ingredients';
 
-  var $ingredientsInfo = document.createElement('div');
+  const $ingredientsInfo = document.createElement('div');
   $ingredientsInfo.className = 'col-45';
   $ingredientsInfo.appendChild($ingredientsText);
   $ingredientsInfo.appendChild($ingredientList);
   $ingredientsInfo.appendChild($instructionsCol);
 
-  var $moreInfo = document.createElement('div');
+  const $moreInfo = document.createElement('div');
   $moreInfo.className = 'col row more-info';
   $moreInfo.appendChild($ingredientsInfo);
   $moreInfo.appendChild($nutritionInfo);
@@ -467,16 +467,16 @@ function generateMoreInfoDOM(recipe) {
 }
 
 function generateTableRowDOM(recipe, key) {
-  var $label = document.createElement('td');
+  const $label = document.createElement('td');
   $label.textContent = recipe.totalDaily[key].label;
 
-  var $amount = document.createElement('td');
+  const $amount = document.createElement('td');
   $amount.textContent = Math.round(recipe.totalNutrients[key].quantity / recipe.yield) + recipe.totalNutrients[key].unit;
 
-  var $percent = document.createElement('td');
+  const $percent = document.createElement('td');
   $percent.textContent = Math.round(recipe.totalDaily[key].quantity / recipe.yield) + '%';
 
-  var $row = document.createElement('tr');
+  const $row = document.createElement('tr');
   $row.appendChild($label);
   $row.appendChild($amount);
   $row.appendChild($percent);
@@ -485,13 +485,13 @@ function generateTableRowDOM(recipe, key) {
 }
 
 function generateDailyTableDOM(recipes) {
-  var $table = document.createElement('table');
+  const $table = document.createElement('table');
   if (recipes.length === 0) return $table;
 
-  var $tHeader = generateDailyTableHeaderDOM();
-  var $tBody = document.createElement('tbody');
-  var sumNutrients = getSumNutrients(recipes);
-  for (var i = 0; i < sumNutrients.length; i++) {
+  const $tHeader = generateDailyTableHeaderDOM();
+  const $tBody = document.createElement('tbody');
+  const sumNutrients = getSumNutrients(recipes);
+  for (let i = 0; i < sumNutrients.length; i++) {
     $tBody.appendChild(generateDailyRowDOM(sumNutrients[i]));
     $tBody.appendChild(generateDailyMoreInfoDOM(sumNutrients[i].key));
   }
@@ -501,37 +501,37 @@ function generateDailyTableDOM(recipes) {
 }
 
 function generateDailyTableHeaderDOM() {
-  var $label = document.createElement('th');
+  const $label = document.createElement('th');
   $label.textContent = 'Nutrition';
 
-  var $amount = document.createElement('th');
+  const $amount = document.createElement('th');
   $amount.textContent = 'Amount';
 
-  var $percent = document.createElement('th');
+  const $percent = document.createElement('th');
   $percent.textContent = 'Percent Daily';
 
-  var $row = document.createElement('tr');
+  const $row = document.createElement('tr');
   $row.appendChild($label);
   $row.appendChild($amount);
   $row.appendChild($percent);
 
-  var $thead = document.createElement('thead');
+  const $thead = document.createElement('thead');
   $thead.appendChild($row);
 
   return $thead;
 }
 
 function generateDailyRowDOM(nutrient) {
-  var $label = document.createElement('td');
+  const $label = document.createElement('td');
   $label.textContent = nutrient.label;
 
-  var $amount = document.createElement('td');
+  const $amount = document.createElement('td');
   $amount.textContent = Math.round(nutrient.quantity) + nutrient.unit;
 
-  var $percent = document.createElement('td');
+  const $percent = document.createElement('td');
   $percent.textContent = Math.round(nutrient.percent) + '%';
 
-  var $row = document.createElement('tr');
+  const $row = document.createElement('tr');
   $row.className = 'daily-row';
   $row.appendChild($label);
   $row.appendChild($amount);
@@ -541,36 +541,36 @@ function generateDailyRowDOM(nutrient) {
 }
 
 function generateDailyMoreInfoDOM(key) {
-  var $tableContainer = document.createElement('div');
+  const $tableContainer = document.createElement('div');
   $tableContainer.className = 'more-info recipe-nutrition-info';
-  for (var i = 0; i < data.dailyRecipes.length; i++) {
+  for (let i = 0; i < data.dailyRecipes.length; i++) {
     $tableContainer.appendChild(generateMoreInfoRowDOM(key, data.dailyRecipes[i]));
   }
 
-  var $td = document.createElement('td');
+  const $td = document.createElement('td');
   $td.setAttribute('colspan', '3');
   $td.appendChild($tableContainer);
 
-  var $row = document.createElement('tr');
+  const $row = document.createElement('tr');
   $row.appendChild($td);
 
   return $row;
 }
 
 function generateMoreInfoRowDOM(key, recipe) {
-  var $label = document.createElement('div');
+  const $label = document.createElement('div');
   $label.className = 'column-half';
   $label.textContent = recipe.label;
 
-  var $amount = document.createElement('div');
+  const $amount = document.createElement('div');
   $amount.className = 'col-20';
   $amount.textContent = Math.round(recipe.totalNutrients[key].quantity / recipe.yield) + recipe.totalNutrients[key].unit;
 
-  var $percent = document.createElement('div');
+  const $percent = document.createElement('div');
   $percent.className = 'col-30';
   $percent.textContent = Math.round(recipe.totalDaily[key].quantity / recipe.yield) + '%';
 
-  var $row = document.createElement('div');
+  const $row = document.createElement('div');
   $row.className = 'row';
   $row.appendChild($label);
   $row.appendChild($amount);
@@ -581,42 +581,42 @@ function generateMoreInfoRowDOM(key, recipe) {
 
 function updatePageHeader(view) {
   if (view === 'recipe-list') {
-    var $recipeCount = document.createElement('span');
+    const $recipeCount = document.createElement('span');
     $recipeCount.textContent = data.search.count;
 
-    var $headerText = document.createElement('h3');
+    const $headerText = document.createElement('h3');
     $headerText.className = 'page-header';
     $headerText.textContent = ' Recipes Found';
     $headerText.prepend($recipeCount);
 
-    var $headerContainer = document.createElement('div');
+    const $headerContainer = document.createElement('div');
     $headerContainer.className = 'col-90 header-container';
     $headerContainer.appendChild($headerText);
 
     $recipeListContainer.appendChild($headerContainer);
   } else if (view === 'favorites') {
-    $headerText = document.createElement('h3');
+    const $headerText = document.createElement('h3');
     $headerText.className = 'page-header';
     $headerText.textContent = 'Favorite Recipes';
 
-    var $questionIcon = document.createElement('i');
+    const $questionIcon = document.createElement('i');
     $questionIcon.className = 'fas fa-question-circle questionIcon';
 
-    $headerContainer = document.createElement('div');
+    const $headerContainer = document.createElement('div');
     $headerContainer.className = 'col-90 header-container relative';
     $headerContainer.appendChild($headerText);
     $headerContainer.appendChild($questionIcon);
 
     $favoritesContainer.appendChild($headerContainer);
   } else if (view === 'daily') {
-    $headerText = document.createElement('h3');
+    const $headerText = document.createElement('h3');
     $headerText.className = 'page-header';
     $headerText.textContent = 'Daily Nutrition';
 
-    $questionIcon = document.createElement('i');
+    const $questionIcon = document.createElement('i');
     $questionIcon.className = 'fas fa-question-circle questionIcon';
 
-    $headerContainer = document.createElement('div');
+    const $headerContainer = document.createElement('div');
     $headerContainer.className = 'col-90 header-container relative';
     $headerContainer.appendChild($headerText);
     $headerContainer.appendChild($questionIcon);
@@ -631,8 +631,8 @@ function destroyChildren(el) {
 
 function resetSearchForm() {
   $searchForm.reset();
-  var $toggleButtonList = document.querySelectorAll('.toggle-button');
-  for (var i = 0; i < $toggleButtonList.length; i++) {
+  const $toggleButtonList = document.querySelectorAll('.toggle-button');
+  for (let i = 0; i < $toggleButtonList.length; i++) {
     if ($toggleButtonList[i].classList.contains('toggled')) $toggleButtonList[i].classList.toggle('toggled');
   }
   if ($toggleOptionsBtn.classList.contains('show-options')) {
@@ -643,13 +643,13 @@ function resetSearchForm() {
 
 function generateRecipeList(recipes, $container) {
   if (recipes.length === 0) {
-    var $noRecipes = document.createElement('h3');
+    const $noRecipes = document.createElement('h3');
     $noRecipes.innerText = 'No recipes found. \n To begin, search for recipes and add it to your list!';
     $noRecipes.className = 'no-recipes text-center';
     $container.appendChild($noRecipes);
   } else if (data.view === 'recipe-list') {
-    var recipeBox = [];
-    for (var i = 0; i < recipes.length; i++) {
+    const recipeBox = [];
+    for (let i = 0; i < recipes.length; i++) {
       recipeBox.push(generateRecipeDOM(recipes[i]));
     }
     ScrollTrigger.batch(recipeBox, {
@@ -659,7 +659,7 @@ function generateRecipeList(recipes, $container) {
     });
   } else {
     destroyChildren($recipeListContainer);
-    for (i = 0; i < recipes.length; i++) {
+    for (let i = 0; i < recipes.length; i++) {
       $container.appendChild(generateRecipeDOM(recipes[i]));
     }
     ScrollTrigger.batch('.recipe-box', {
@@ -671,7 +671,7 @@ function generateRecipeList(recipes, $container) {
 }
 
 function showSearching($button) {
-  var $loading = document.createElement('img');
+  const $loading = document.createElement('img');
   $loading.setAttribute('src', 'images/rotate-cw.svg');
   $loading.className = 'searching';
   $button.textContent = '';
@@ -706,24 +706,24 @@ function handleContentLoad(event) {
 
 function clickHeart(event) {
   event.target.classList.toggle('transparent');
-  var $recipeContainer = event.target.closest('.recipe-container');
-  var recipeURI = $recipeContainer.getAttribute('data-uri');
+  const $recipeContainer = event.target.closest('.recipe-container');
+  const recipeURI = $recipeContainer.getAttribute('data-uri');
   if (notInData(recipeURI, data.favorites)) {
     data.favorites.push(data.searchRecipes[findRecipeIndex(data.searchRecipes, recipeURI)]);
   } else {
-    var index = findRecipeIndex(data.favorites, recipeURI);
+    const index = findRecipeIndex(data.favorites, recipeURI);
     data.favorites.splice(index, 1);
   }
 }
 
 function clickDaily(event) {
   event.target.classList.toggle('transparent');
-  var $recipeContainer = event.target.closest('.recipe-container');
-  var recipeURI = $recipeContainer.getAttribute('data-uri');
+  const $recipeContainer = event.target.closest('.recipe-container');
+  const recipeURI = $recipeContainer.getAttribute('data-uri');
   if (notInData(recipeURI, data.dailyRecipes)) {
     data.dailyRecipes.push(data.searchRecipes[findRecipeIndex(data.searchRecipes, recipeURI)]);
   } else {
-    var index = findRecipeIndex(data.dailyRecipes, recipeURI);
+    const index = findRecipeIndex(data.dailyRecipes, recipeURI);
     data.dailyRecipes.splice(index, 1);
   }
 }
@@ -752,27 +752,27 @@ function clickOnRecipe(event) {
     return;
   }
 
-  var $recipeContainer = event.target.closest('.recipe-container');
-  var moreInfoBox = $recipeContainer.querySelector('.more-info');
+  const $recipeContainer = event.target.closest('.recipe-container');
+  const moreInfoBox = $recipeContainer.querySelector('.more-info');
   expandElement(moreInfoBox, 'open');
 }
 
 function clickOnNutrition(event) {
   if (!event.target.closest('.daily-row')) return;
 
-  var $nutritionRow = event.target.closest('.daily-row');
-  var $moreInfoRow = $nutritionRow.nextElementSibling;
-  var $moreInfoContainer = $moreInfoRow.querySelector('.more-info');
+  const $nutritionRow = event.target.closest('.daily-row');
+  const $moreInfoRow = $nutritionRow.nextElementSibling;
+  const $moreInfoContainer = $moreInfoRow.querySelector('.more-info');
   expandElement($moreInfoContainer, 'open');
 }
 
 function expandElement(elem, toggleClass) {
   elem.style.height = '';
   elem.style.transition = 'none';
-  var startHeight = window.getComputedStyle(elem).height;
+  const startHeight = window.getComputedStyle(elem).height;
 
   elem.classList.toggle(toggleClass);
-  var height = window.getComputedStyle(elem).height;
+  const height = window.getComputedStyle(elem).height;
 
   elem.style.height = startHeight;
 
@@ -793,21 +793,21 @@ function resetHeight(event) {
 
 function showMoreRecipes(event) {
   showSearching($moreRecipesBtn);
-  var moreRecipesURL = data.search._links.next.href;
+  const moreRecipesURL = data.search._links.next.href;
   makeQuery(moreRecipesURL);
 }
 
 function getSumNutrients(recipeList) {
-  var allNutrients = [];
-  for (var key in recipeList[0].totalDaily) {
-    var sumNutrients = {
+  const allNutrients = [];
+  for (const key in recipeList[0].totalDaily) {
+    const sumNutrients = {
       label: recipeList[0].totalNutrients[key].label,
       quantity: 0,
       unit: recipeList[0].totalNutrients[key].unit,
       percent: 0,
       key: key
     };
-    for (var i = 0; i < recipeList.length; i++) {
+    for (let i = 0; i < recipeList.length; i++) {
       sumNutrients.quantity += (recipeList[i].totalNutrients[key].quantity / recipeList[i].yield);
       sumNutrients.percent += (recipeList[i].totalDaily[key].quantity / recipeList[i].yield);
     }
@@ -829,10 +829,10 @@ function toggleModal(event) {
 }
 
 function clickQuestionIcon(event) {
-  var $modalText = document.querySelector('.modal-text');
+  const $modalText = document.querySelector('.modal-text');
   destroyChildren($modalText);
-  var $modalHeader = document.createElement('h2');
-  var $instructions = document.createElement('h4');
+  const $modalHeader = document.createElement('h2');
+  const $instructions = document.createElement('h4');
   if (data.view === 'favorites') {
     $modalHeader.textContent = 'Favorite Recipes';
     $instructions.textContent = 'This page will display a list of your favorite recipes. To add recipes to this list, search for recipes and click on the heart icons.';
@@ -840,11 +840,11 @@ function clickQuestionIcon(event) {
     $modalHeader.textContent = 'Daily Nutrition';
     $instructions.textContent = 'This page will display a table of the daily recipe\'s total daily nutritional intake. To add recipes to this list, search for recipes and click on the calendar icons.';
   }
-  var $headerCol = document.createElement('div');
+  const $headerCol = document.createElement('div');
   $headerCol.className = 'col';
   $headerCol.appendChild($modalHeader);
 
-  var $instructionsCol = document.createElement('div');
+  const $instructionsCol = document.createElement('div');
   $instructionsCol.className = 'col';
   $instructionsCol.appendChild($instructions);
 
