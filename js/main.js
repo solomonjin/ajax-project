@@ -732,7 +732,7 @@ function clickDaily(event) {
 }
 
 function notInData(uri, list) {
-  return list.every(favRecipe => { return favRecipe.uri !== uri; });
+  return list.every(favRecipe => favRecipe.uri !== uri);
 }
 
 function findRecipeIndex(recipeList, uri) {
