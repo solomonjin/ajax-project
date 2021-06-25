@@ -134,11 +134,12 @@ function getMealType(meal) {
 }
 
 function getButtonOptions(list, obj) {
+  const { cuisineType, diet, health } = obj;
   for (let i = 0; i < list.length; i++) {
     if (list[i].classList.contains('toggled')) {
-      if (list[i].getAttribute('data-type') === 'cuisineType') obj.cuisineType.push('&cuisineType=' + encodeURIComponent(list[i].getAttribute('data-value')));
-      if (list[i].getAttribute('data-type') === 'diet') obj.diet.push('&diet=' + list[i].getAttribute('data-value'));
-      if (list[i].getAttribute('data-type') === 'health') obj.health.push('&health=' + list[i].getAttribute('data-value'));
+      if (list[i].getAttribute('data-type') === 'cuisineType') cuisineType.push('&cuisineType=' + encodeURIComponent(list[i].getAttribute('data-value')));
+      if (list[i].getAttribute('data-type') === 'diet') diet.push('&diet=' + list[i].getAttribute('data-value'));
+      if (list[i].getAttribute('data-type') === 'health') health.push('&health=' + list[i].getAttribute('data-value'));
     }
   }
 }
@@ -155,28 +156,30 @@ function getExclusions(str) {
 
 function generateSearchURL(obj) {
   let url = 'https://api.edamam.com/api/recipes/v2?type=public';
-  url += obj.keywords;
+  const { keywords, calories, ingredients, mealType } = obj;
+  url += keywords;
   url += '&app_id=df6bbd8b&app_key=16ab3f81eb63f8435dd3e8d0dd8fbed8';
-  if (obj.calories) url += obj.calories;
-  if (obj.ingredients) url += obj.ingredients;
-  if (obj.mealType) url += obj.mealType;
+  if (calories) url += calories;
+  if (ingredients) url += ingredients;
+  if (mealType) url += mealType;
   url += getOptionsURL(obj);
   return url;
 }
 
 function getOptionsURL(obj) {
   let result = '';
-  for (let i = 0; i < obj.cuisineType.length; i++) {
-    result += obj.cuisineType[i];
+  const { cuisineType, diet, health, exclude } = obj;
+  for (let i = 0; i < cuisineType.length; i++) {
+    result += cuisineType[i];
   }
-  for (let i = 0; i < obj.diet.length; i++) {
-    result += obj.diet[i];
+  for (let i = 0; i < diet.length; i++) {
+    result += diet[i];
   }
-  for (let i = 0; i < obj.health.length; i++) {
-    result += obj.health[i];
+  for (let i = 0; i < health.length; i++) {
+    result += health[i];
   }
-  for (let i = 0; i < obj.exclude.length; i++) {
-    result += obj.exclude[i];
+  for (let i = 0; i < exclude.length; i++) {
+    result += exclude[i];
   }
   return result;
 }
