@@ -1,24 +1,24 @@
 /* global gsap */
 /* global ScrollTrigger */
 
-var $toggleNavMenu = document.querySelector('.nav-toggle');
-var $closeNavBtn = document.querySelector('.close-nav');
-var $searchForm = document.querySelector('.search-form');
-var $searchOptions = document.querySelector('.search-options');
-var $toggleOptionsBtn = document.querySelector('.toggle-options');
-var $moreOptionsForm = document.querySelector('.options');
-var $viewContainer = document.querySelectorAll('.views');
-var $navList = document.querySelector('.nav-list');
-var $navBar = document.querySelector('.nav-bar');
-var $navBarDT = document.querySelector('.nav-bar-desktop');
-var $searchButton = document.querySelector('.search-button');
-var $submitSearchBtn = document.querySelector('.submit-search');
-var $recipeListContainer = document.querySelector('.recipe-list');
-var $favoritesContainer = document.querySelector('.favorite-list');
-var $dailyContainer = document.querySelector('.daily-list');
-var $moreRecipesBtn = document.querySelector('.more-recipes');
-var $closeModalBtn = document.querySelector('.close-modal');
-var $modal = document.querySelector('.modal');
+const $toggleNavMenu = document.querySelector('.nav-toggle');
+const $closeNavBtn = document.querySelector('.close-nav');
+const $searchForm = document.querySelector('.search-form');
+const $searchOptions = document.querySelector('.search-options');
+const $toggleOptionsBtn = document.querySelector('.toggle-options');
+const $moreOptionsForm = document.querySelector('.options');
+const $viewContainer = document.querySelectorAll('.views');
+const $navList = document.querySelector('.nav-list');
+const $navBar = document.querySelector('.nav-bar');
+const $navBarDT = document.querySelector('.nav-bar-desktop');
+const $searchButton = document.querySelector('.search-button');
+const $submitSearchBtn = document.querySelector('.submit-search');
+const $recipeListContainer = document.querySelector('.recipe-list');
+const $favoritesContainer = document.querySelector('.favorite-list');
+const $dailyContainer = document.querySelector('.daily-list');
+const $moreRecipesBtn = document.querySelector('.more-recipes');
+const $closeModalBtn = document.querySelector('.close-modal');
+const $modal = document.querySelector('.modal');
 
 $closeNavBtn.addEventListener('click', toggleNavMenu);
 $searchOptions.addEventListener('click', toggleButton);
@@ -55,7 +55,7 @@ function toggleOptions(event) {
 
 function switchView(view) {
   data.view = view;
-  for (var i = 0; i < $viewContainer.length; i++) {
+  for (let i = 0; i < $viewContainer.length; i++) {
     if ($viewContainer[i].getAttribute('data-view') === view) $viewContainer[i].classList.remove('hidden');
     else $viewContainer[i].classList.add('hidden');
   }
@@ -70,7 +70,7 @@ function handleNavigation(event) {
     toggleNavMenu();
     return;
   }
-  var view = event.target.getAttribute('data-view');
+  const view = event.target.getAttribute('data-view');
   if (view === 'favorites') {
     data.view = view;
     if (!data.viewFav) clickQuestionIcon();
@@ -93,8 +93,8 @@ function handleNavigation(event) {
 function submitSearch(event) {
   event.preventDefault();
   showSearching($submitSearchBtn);
-  var $toggleButtonList = document.querySelectorAll('.toggle-button');
-  var searchObj = {
+  const $toggleButtonList = document.querySelectorAll('.toggle-button');
+  const searchObj = {
     keywords: getKeyWords($searchForm.keywords.value.toLowerCase()),
     calories: getCalories($searchForm.caloriesFrom.value, $searchForm.caloriesTo.value),
     ingredients: getMaxIngredients($searchForm.ingredients.value),
@@ -105,7 +105,7 @@ function submitSearch(event) {
     exclude: getExclusions($searchForm.exclusions.value.toLowerCase())
   };
   getButtonOptions($toggleButtonList, searchObj);
-  var searchURL = generateSearchURL(searchObj);
+  const searchURL = generateSearchURL(searchObj);
   makeQuery(searchURL);
   destroyChildren($recipeListContainer);
   resetSearchForm();
@@ -134,7 +134,7 @@ function getMealType(meal) {
 }
 
 function getButtonOptions(list, obj) {
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     if (list[i].classList.contains('toggled')) {
       if (list[i].getAttribute('data-type') === 'cuisineType') obj.cuisineType.push('&cuisineType=' + encodeURIComponent(list[i].getAttribute('data-value')));
       if (list[i].getAttribute('data-type') === 'diet') obj.diet.push('&diet=' + list[i].getAttribute('data-value'));
@@ -144,17 +144,17 @@ function getButtonOptions(list, obj) {
 }
 
 function getExclusions(str) {
-  var exclusions = [];
+  const exclusions = [];
   if (!str) return exclusions;
-  var list = str.split(' ');
-  for (var i = 0; i < list.length; i++) {
+  const list = str.split(' ');
+  for (let i = 0; i < list.length; i++) {
     if (list[i] !== '') exclusions.push('&excluded=' + list[i]);
   }
   return exclusions;
 }
 
 function generateSearchURL(obj) {
-  var url = 'https://api.edamam.com/api/recipes/v2?type=public';
+  let url = 'https://api.edamam.com/api/recipes/v2?type=public';
   url += obj.keywords;
   url += '&app_id=df6bbd8b&app_key=16ab3f81eb63f8435dd3e8d0dd8fbed8';
   if (obj.calories) url += obj.calories;
@@ -165,24 +165,24 @@ function generateSearchURL(obj) {
 }
 
 function getOptionsURL(obj) {
-  var result = '';
-  for (var i = 0; i < obj.cuisineType.length; i++) {
+  let result = '';
+  for (let i = 0; i < obj.cuisineType.length; i++) {
     result += obj.cuisineType[i];
   }
-  for (i = 0; i < obj.diet.length; i++) {
+  for (let i = 0; i < obj.diet.length; i++) {
     result += obj.diet[i];
   }
-  for (i = 0; i < obj.health.length; i++) {
+  for (let i = 0; i < obj.health.length; i++) {
     result += obj.health[i];
   }
-  for (i = 0; i < obj.exclude.length; i++) {
+  for (let i = 0; i < obj.exclude.length; i++) {
     result += obj.exclude[i];
   }
   return result;
 }
 
 function makeQuery(url) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', url);
   xhr.responseType = 'json';
   xhr.addEventListener('load', loadData);
@@ -208,7 +208,7 @@ function loadData(event) {
 }
 
 function addSearchRecipes() {
-  for (var i = 0; i < data.search.hits.length; i++) {
+  for (let i = 0; i < data.search.hits.length; i++) {
     data.searchRecipes.push(data.search.hits[i].recipe);
   }
 }
