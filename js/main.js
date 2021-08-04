@@ -189,7 +189,30 @@ function makeQuery(url) {
   xhr.open('GET', url);
   xhr.responseType = 'json';
   xhr.addEventListener('load', loadData);
+  xhr.addEventListener('error', handleError);
   xhr.send();
+}
+
+function handleError(event) {
+  const $modalText = document.querySelector('.modal-text');
+  destroyChildren($modalText);
+  const $modalHeader = document.createElement('h2');
+  const $instructions = document.createElement('h4');
+
+  $modalHeader.textContent = 'A Network Error Occurred';
+  $instructions.textContent = 'Please try again later.';
+
+  const $headerCol = document.createElement('div');
+  $headerCol.className = 'col';
+  $headerCol.appendChild($modalHeader);
+
+  const $instructionsCol = document.createElement('div');
+  $instructionsCol.className = 'col';
+  $instructionsCol.appendChild($instructions);
+
+  $modalText.appendChild($headerCol);
+  $modalText.appendChild($instructionsCol);
+  toggleModal();
 }
 
 function loadData(event) {
