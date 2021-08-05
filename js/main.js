@@ -485,7 +485,7 @@ function generateMoreInfoDOM(recipe) {
   $ingredientsInfo.appendChild($instructionsCol);
 
   const $moreInfo = document.createElement('div');
-  $moreInfo.className = 'col row more-info';
+  $moreInfo.className = 'col row more-info justify-between';
   $moreInfo.appendChild($ingredientsInfo);
   $moreInfo.appendChild($nutritionInfo);
 
