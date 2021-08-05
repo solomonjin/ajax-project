@@ -42,13 +42,13 @@
   height: 90px;
   display: flex;
   align-items: flex-end;
-  padding: 0 20px 10px;
+  padding: 0 1.3rem 0.7rem;
   justify-content: space-between;
   color: #f0f4ef;
 }
 
 .nav-bar-desktop {
-  padding-top: 10px;
+  padding-top: 0.7rem;
   align-items: center;
   display: none;
 }
@@ -164,7 +164,7 @@ button:hover {
 }
 
 .search-btn {
-  padding: 10px 30px;
+  padding: 0.7rem 1.8rem;
   background-color: #e275b7;
   color: #344966;
   border-radius: 50px;
@@ -303,13 +303,13 @@ h5 {
 .recipe-container {
   background-color: #e8ebe8;
   border-radius: 5px;
-  padding: 5px;
+  padding: 0.3rem;
   margin: 1rem auto 0;
 }
 
 .recipe-container .col-65 {
-  padding: 0 5px;
-  padding-top: 5px;
+  padding: 0 0.3rem;
+  padding-top: 0.3rem;
 }
 
 .recipe-container .col-35:hover,
@@ -394,7 +394,7 @@ table,
 }
 
 .ingredient-list {
-  padding-left: 20px;
+  padding-left: 1rem;
 }
 
 .ingredient-list > li {
@@ -409,7 +409,7 @@ table,
   overflow: hidden;
   transition: height 0.5s ease-in-out;
   height: 0;
-  padding: 0 5px;
+  padding: 0 0.3rem;
 }
 
 .more-info.open {
@@ -460,7 +460,7 @@ table,
   transform: translate(-50%, -50%);
   z-index: 2;
   border-radius: 5px;
-  padding: 10px 30px;
+  padding: 0.7rem 1.8rem;
 }
 
 .modal-overlay {
@@ -526,13 +526,13 @@ i:hover {
 
   .label-kw {
     justify-content: flex-end;
-    padding-right: 10px;
+    padding-right: 0.5rem;
     flex-basis: 20%;
   }
 
   .label-excl {
     justify-content: flex-end;
-    padding-right: 10px;
+    padding-right: 0.5rem;
     flex-basis: 30%;
   }
 
