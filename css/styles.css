@@ -104,7 +104,7 @@ a.open-nav {
 
 .nav-list {
   list-style: none;
-  text-align: center;
+  text-align: left;
   margin: 0;
 }
 
@@ -306,6 +306,11 @@ h5 {
   margin: 1rem auto 0;
 }
 
+.recipe-container .col-65 {
+  padding: 0 5px;
+  padding-top: 5px;
+}
+
 .recipe-container .col-35:hover,
 .recipe-container .col-65:hover {
   cursor: pointer;
@@ -323,7 +328,7 @@ h5 {
 .icon-container {
   position: relative;
   width: 18px;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .daily-icon,
@@ -331,7 +336,6 @@ h5 {
 .favorite-icon,
 .unfavorite-icon {
   width: 18px;
-  margin-right: 10px;
 }
 
 .daily-icon,
@@ -375,6 +379,14 @@ table {
   text-align: center;
 }
 
+table tr > td:first-child {
+  text-align: left;
+}
+
+table tr > td:last-child {
+  text-align: right;
+}
+
 table,
 .ingredient-list {
   font-size: 12px;
@@ -396,6 +408,7 @@ table,
   overflow: hidden;
   transition: height 0.5s ease-in-out;
   height: 0;
+  padding: 0 5px;
 }
 
 .more-info.open {
