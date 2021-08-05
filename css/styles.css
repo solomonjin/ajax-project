@@ -1,4 +1,4 @@
-
+/* Class Tools */
 .justify-center {
   display: flex;
   justify-content: center;
@@ -35,6 +35,8 @@
 .relative {
   position: relative;
 }
+
+/* Header & Nav Bar */
 
 .nav-bar-desktop,
 .nav-bar {
@@ -161,6 +163,8 @@ button:hover {
 .search-icon:hover {
   transform: rotate(90deg);
 }
+
+/* Search Form */
 
 .search-btn {
   padding: 0.7rem 1.8rem;
@@ -293,6 +297,8 @@ h4,
 h5 {
   font-weight: 400;
 }
+
+/* Recipe Card */
 
 .recipe-info,
 .recipe-name {
@@ -449,6 +455,8 @@ table,
   color: #f0f4ef;
 }
 
+/* Modals */
+
 .modal {
   position: fixed;
   width: 80%;
@@ -493,6 +501,7 @@ i:hover {
   visibility: hidden;
 }
 
+/* Tablet */
 @media only screen and (min-width: 768px) {
   .thumbnail {
     max-width: 180px;
@@ -513,6 +522,7 @@ i:hover {
   }
 }
 
+/* Desktop */
 @media only screen and (min-width: 1115px) {
   .nav-bar-desktop {
     display: flex;
