@@ -182,7 +182,7 @@ button:hover {
   width: 24px;
   position: relative;
   top: 5px;
-  margin-right: 10px;
+  margin-right: 0.6rem;
 }
 
 main,
@@ -209,7 +209,7 @@ main,
 
 .small-input {
   width: 50px;
-  margin-left: 5px;
+  margin-left: 0.25rem;
 }
 
 .keywords::placeholder {
@@ -222,7 +222,7 @@ form label {
 
 .meal-type-wheel {
   width: 300px;
-  margin-left: 10px;
+  margin-left: 0.5rem;
   color: #69788c;
 }
 
@@ -239,7 +239,7 @@ form label {
   color: #344966;
   font-size: 0.6rem;
   border-radius: 5px;
-  margin: 5px;
+  margin: 0.3rem;
   transition: color 0.5s ease;
   transition: background-color 0.5s ease;
 }
@@ -329,7 +329,7 @@ h5 {
 .icon-container {
   position: relative;
   width: 18px;
-  margin-left: 10px;
+  margin-left: 0.5rem;
 }
 
 .daily-icon,
